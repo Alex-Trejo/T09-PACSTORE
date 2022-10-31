@@ -1,1 +1,1 @@
-vpp and pdf files
+ClassDiagrams: vpp and pdf files
