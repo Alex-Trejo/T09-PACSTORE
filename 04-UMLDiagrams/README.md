@@ -1,1 +1,1 @@
-UMLDiagrams
+UMLDiagrams:
