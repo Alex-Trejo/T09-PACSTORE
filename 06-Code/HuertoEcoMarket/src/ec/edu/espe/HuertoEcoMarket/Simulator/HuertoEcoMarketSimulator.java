@@ -37,7 +37,12 @@ public class HuertoEcoMarketSimulator {
         Scanner console = new Scanner(System.in);
         console.useDelimiter("\n");
 
-        ArrayList<Inventory> inventory = new ArrayList<>();
+        Inventory inventory = new Inventory();
+        inventory.listProduct = new ArrayList();
+        File file = new File("./inventory.json");
+
+
+        //ArrayList<Inventory> inventory = new ArrayList<>();
 
         while (!exit) {
             HeaderOfThePresentation(position);
@@ -52,7 +57,7 @@ public class HuertoEcoMarketSimulator {
                                 RegisterProduct registerProduct = registerProduct(console);
 
                                 printProducts(registerProduct);
-                                System.out.println("registerProduct = " + registerProduct);
+                                System.out.println("registerProduct = " + inventory);
 
                             } catch (NumberFormatException er) {
                                 System.out.println("the type of value entered is incorrect try again");
@@ -82,21 +87,21 @@ public class HuertoEcoMarketSimulator {
                                 int stock, currentStock;
                                 switch (options) {
                                     case 1: {
-                                        System.out.println("Enter the product you want to delete");
+                                        /*System.out.println("Enter the product you want to delete");
                                         product = console.next();
                                         inventory.remove(product);
-                                        System.out.println("Product deleted");
+                                        System.out.println("Product deleted");*/
 
                                     }
                                     break;
                                     case 2: {
 
-                                        for (int i = 0; i < inventory.size(); i++) {
+                                        /*for (int i = 0; i < inventory.size(); i++) {
 
-                                        System.out.println("introduced or added \t--> " + inventory.get(i).getName());
-                                        System.out.println("product packagest \t--> " +inventory.get(i).getAmount());
-                                        System.out.println("full value is $ \t--> " +inventory.get(i).getUnitPrice());
-                                        }
+                                            System.out.println("introduced or added \t--> " + inventory.get(i).getName());
+                                            System.out.println("product packagest \t--> " + inventory.get(i).getAmount());
+                                            System.out.println("full value is $ \t--> " + inventory.get(i).getUnitPrice());
+                                        }*/
                                     }
 
                                     break;
@@ -120,6 +125,24 @@ public class HuertoEcoMarketSimulator {
 
                     }
                     case 3 -> {
+
+                        
+                        try {
+                            String acept;
+                            System.out.println("You want to remove a product from inventory");
+                            acept = console.nextLine();
+
+                            if (acept.equals("yes")) {
+
+                                inventory.Remove();
+                                
+
+                            } else {
+                                System.out.println("-------------------------------------");
+                            }
+                        } catch (java.util.InputMismatchException error) {
+                            System.err.println("ERROR!, Please enter only yes or no");
+                        }
 
                     }
                     case 4 ->
@@ -192,19 +215,19 @@ public class HuertoEcoMarketSimulator {
         System.out.println("4)-Log out");
         System.out.println("Enter the option:");
     }
-    
-    private static void SaveDataJson(ArrayList<Inventory> inventory){
+
+    private static void SaveDataJson(ArrayList<Inventory> inventory) {
         Gson gson = new Gson();
-        String json=gson.toJson(inventory);
-        File file=new File("./inventory.json");
-        try(FileWriter writt=new FileWriter(file);){
+        String json = gson.toJson(inventory);
+        File file = new File("./inventory.json");
+        try ( FileWriter writt = new FileWriter(file);) {
             writt.write(json);
             System.out.println("File converted to Json");
-                    }catch(Exception err){
-                        System.out.println("ERROR! Problems saving the file");
-                    }
+        } catch (Exception err) {
+            System.out.println("ERROR! Problems saving the file");
+        }
     }
-        
+
     /*private static void readFile(ArrayList<Inventory> inventory) throws org.json.simple.parser.ParseException {
 
         JSONParser parser = new JSONParser();
@@ -272,5 +295,27 @@ public class HuertoEcoMarketSimulator {
 
         }
     }*/
+    
+    
+    
+    
+    /*private static void inventory(File file) {
+        try {
+            Scanner scanFile = new Scanner inventory(file);
 
+            ArrayList<RegisterProduct> listOfProductsSale = file(scanFile);
+            System.out.println("===============LIST COMPLETE OF CHICKENS====================");
+            System.out.println("");
+            System.out.printf("   %10s %10s %10s %6s %15s", "NAME", "AMOUNT", "UNITPRICE");
+            System.out.println();
+            for (RegisterProduct registerProduct : listOfProductsSale) {
+                System.out.format("   %10s %10s %10s %6s %15s", registerProduct.getName(), registerProduct.getAmount(), registerProduct.getUnitPrice());
+                System.out.println();
+            }
+            System.out.println("============================================================");
+
+        } catch (FileNotFoundException error) {
+            System.err.println("Oops, Error: file not found");
+        }
+    }*/
 }
