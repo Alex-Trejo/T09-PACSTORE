@@ -75,5 +75,10 @@ public class Inventory {
     public void setRegisterEntered(RegisterProduct registerEntered) {
         this.registerEntered = registerEntered;
     }
+    public String[] getArray(){
+        String [] data={name,String.valueOf(amount),String.valueOf(unitPrice)};
+        return data;
+    }
+
 
 }

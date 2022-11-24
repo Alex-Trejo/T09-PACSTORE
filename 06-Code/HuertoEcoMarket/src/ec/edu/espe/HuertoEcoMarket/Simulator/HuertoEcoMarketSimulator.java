@@ -1,5 +1,6 @@
 package ec.edu.espe.HuertoEcoMarket.Simulator;
 
+import com.google.gson.Gson;
 import ec.edu.espe.HuertoEcoMarket.model.Inventory;
 import ec.edu.espe.HuertoEcoMarket.model.RegisterProduct;
 import java.io.File;
@@ -12,11 +13,11 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+//port java.util.logging.Level;
+//port java.util.logging.Logger;
+//port org.json.simple.JSONArray;
+//port org.json.simple.JSONObject;
+//port org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -157,7 +158,7 @@ public class HuertoEcoMarketSimulator {
         registerProduct.setName(name);
         registerProduct.setAmount(amount);
         registerProduct.setUnitPrice(unitPrice);
-        saveInventory(inventory);
+        SaveDataJson(inventory);
         inventory.add(inventorys);
         return registerProduct;
     }
@@ -192,7 +193,19 @@ public class HuertoEcoMarketSimulator {
         System.out.println("Enter the option:");
     }
     
-    private static void readFile(ArrayList<Inventory> inventory) throws org.json.simple.parser.ParseException {
+    private static void SaveDataJson(ArrayList<Inventory> inventory){
+        Gson gson = new Gson();
+        String json=gson.toJson(inventory);
+        File file=new File("./inventory.json");
+        try(FileWriter writt=new FileWriter(file);){
+            writt.write(json);
+            System.out.println("File converted to Json");
+                    }catch(Exception err){
+                        System.out.println("ERROR! Problems saving the file");
+                    }
+    }
+        
+    /*private static void readFile(ArrayList<Inventory> inventory) throws org.json.simple.parser.ParseException {
 
         JSONParser parser = new JSONParser();
         try {
@@ -222,8 +235,7 @@ public class HuertoEcoMarketSimulator {
 
     }
     
-    
-    
+   
     
      private static void saveInventory(ArrayList<Inventory> inventory) {
         File fileJson = new File("HuertoEcoMarket.json");
@@ -259,6 +271,6 @@ public class HuertoEcoMarketSimulator {
             }
 
         }
-    }
+    }*/
 
 }
