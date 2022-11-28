@@ -5,6 +5,8 @@
 package ec.edu.espe.HuertoEcoMarket.model;
 
 import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -51,16 +53,16 @@ public class Inventory {
         this.unitPrice = 0.0;
 
     }
+    public ArrayList<RegisterProduct> listProduct = new ArrayList<>();
 
-    private RegisterProduct listProduct = new RegisterProduct();
 
     RegisterProduct registerEntered = new RegisterProduct();
 
-    public RegisterProduct getListProduct() {
+    public ArrayList<RegisterProduct> getListProduct() {
         return listProduct;
     }
 
-    public void setListProduct(RegisterProduct listProduct) {
+    public void setListProduct(ArrayList<RegisterProduct> listProduct) {
         this.listProduct = listProduct;
     }
 
@@ -80,5 +82,57 @@ public class Inventory {
         return data;
     }
 
+    
+    
+    public void Add(){
 
+    Scanner entered = new Scanner(System.in);    
+    
+        String valor;
+        RegisterProduct product = new RegisterProduct();
+        System.out.println("introduced or added \t--> " + product.getName());
+        System.out.println("product packagest \t--> " + product.getAmount());
+        System.out.println("full value is $ \t--> " + product.getUnitPrice());
+        listProduct.add(product);
+    
+    }
+    
+    
+    
+    
+    
+    public void Remove(){
+
+    try{
+    Scanner entered = new Scanner(System.in);    
+    
+    String valor;
+    int amountToRemove;
+    
+    int indice;
+        System.out.println("What Product do you want to remove?");
+        System.out.print("Product Name: ---> ");
+        valor = entered.nextLine();
+        indice = listProduct.indexOf(valor);
+        System.out.println("How many units do you want to remove?");
+        System.out.print("ProductUnits: ---> ");
+        amountToRemove= entered.nextInt();
+        
+        if(indice !=-1){
+        listProduct.remove(indice);
+            System.out.println("Has been removed " + amountToRemove + " boxes of " +valor+ " the inventory");
+            
+         
+        }else{
+            System.out.println("Product Not Found");
+        }
+
+    }catch(java.lang.RuntimeException error){
+        System.err.println("ERROR, wrong data type");
+    }
+    
+    
+    
+    }
+     
 }
