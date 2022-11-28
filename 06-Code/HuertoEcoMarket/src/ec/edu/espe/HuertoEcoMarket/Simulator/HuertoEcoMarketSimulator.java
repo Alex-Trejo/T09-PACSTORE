@@ -289,3 +289,94 @@ public class HuertoEcoMarketSimulator {
         System.out.println("3.Exit");
         System.out.print("Type an option:\t");
     }
+
+    private static void saveProduct(int registrationOfIncomingProducts, RegisterProduct register, ArrayList<Inventory> stock) {
+        Inventory products = new Inventory();
+
+        String name = "";
+        int amount = 0;
+        double unitPrice = 0.0;
+
+        System.out.println("__________________Product registration system______________");
+        System.out.println("----------------------------Product" + (registrationOfIncomingProducts + 1) + "----------------");
+        try {
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.print("Enter the name of the Product to register:\t\t");
+            name = scanner.nextLine();
+
+            System.out.print("Enter the number of boxes:\t");
+            amount = scanner.nextInt();
+
+            System.out.print("Enter the unit price:\t");
+            unitPrice = Double.parseDouble(scanner.next());
+        } catch (Exception er) {
+            System.out.println("Data type does not match ");
+        }
+
+        register.setName(name);
+        products.setName(name);
+        register.setAmount(amount);
+        products.setAmount(amount);
+        register.setUnitPrice(unitPrice);
+        products.setUnitPrice(unitPrice);
+        stock.add(products);
+        addJson(stock);
+    }
+
+    private static void HeaderOfThePresentation(int position) {
+        if (position == 0) {
+            System.out.println("       UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE       ");
+            System.out.println("                       Project");
+            System.out.println("                  HUERTO ECO-MARKET\n");
+            System.out.println("      Integrantes:\n\t\t\tReishel Tipan\n" + "\t\t\tDavid Toapanta\n" + "\t\t\tCarlos Torres\n" + "\t\t\tAlex Trejo\n");
+
+            System.out.println("Instructor: Edison Lascano");
+            System.out.println("=========================================================");
+            System.out.println("¡WELCOME TO CHICKEN FARM SIMULATOR :)!       ");
+            System.out.println("______________________________________________________________");
+        }
+
+        System.out.println("_____________Menu________________");
+        System.out.println("1)Register products:");
+        System.out.println("2)Inventory:");
+        System.out.println("3)Sale:");
+        System.out.println("4)Log out");
+
+    }
+
+    private static void addJson(ArrayList<Inventory> stock) {
+        String save = new Gson().toJson(stock);
+        try {
+            FileWriter write = new FileWriter("HuertoEcoMarket.json");
+            write.write(save);
+            write.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(HuertoEcoMarketSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private static ArrayList<Inventory> readJSON(ArrayList<Inventory> stocks) throws JsonSyntaxException {
+        String json = "";
+        Gson gson = new Gson();
+        //
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("HuertoEcoMarket.json"));
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                json = line;
+                TypeToken<ArrayList<Inventory>> types = new TypeToken<ArrayList<Inventory>>() {
+                };
+
+            }
+            br.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(HuertoEcoMarketSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HuertoEcoMarketSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return stocks;
+    }
+}
