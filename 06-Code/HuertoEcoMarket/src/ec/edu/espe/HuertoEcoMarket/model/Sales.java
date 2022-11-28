@@ -47,11 +47,6 @@ public class Sales {
         this.name ="";
         this.fullValue =0.0;
     } 
-    public void totalAmount(){
-        double result=unitPrice+fullValue;
-        System.out.println("The total purchase price is:"+ result);
-       
-    }
 }
 
 

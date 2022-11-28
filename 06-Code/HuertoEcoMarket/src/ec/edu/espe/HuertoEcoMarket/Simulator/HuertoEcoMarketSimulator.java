@@ -1,23 +1,21 @@
 package ec.edu.espe.HuertoEcoMarket.Simulator;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.HuertoEcoMarket.model.Inventory;
 import ec.edu.espe.HuertoEcoMarket.model.RegisterProduct;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.TreeMap;
-//port java.util.logging.Level;
-//port java.util.logging.Logger;
-//port org.json.simple.JSONArray;
-//port org.json.simple.JSONObject;
-//port org.json.simple.parser.JSONParser;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,117 +31,184 @@ public class HuertoEcoMarketSimulator {
         double unitPrice;
         Boolean exit = false;
         int position = 0;
-        String followAction;
+        String products = "";
+
+        int registrationOfIncomingProducts = 0;
+        ArrayList<Inventory> stock = new ArrayList<>();
+        RegisterProduct register = new RegisterProduct();
         Scanner console = new Scanner(System.in);
-        console.useDelimiter("\n");
-
-        Inventory inventory = new Inventory();
-        inventory.listProduct = new ArrayList();
-        File file = new File("./inventory.json");
-
-
-        //ArrayList<Inventory> inventory = new ArrayList<>();
 
         while (!exit) {
-            HeaderOfThePresentation(position);
+            HeaderOfThePresentation(registrationOfIncomingProducts);
 
             try {
-                option = Integer.parseInt(console.nextLine());
+                System.out.println("Enter the option:");
+                option = console.nextInt();
 
                 switch (option) {
                     case 1 -> {
-                        do {
-                            try {
-                                RegisterProduct registerProduct = registerProduct(console);
+                        int followAction = 1;
+                        while (followAction == 1) {
 
-                                printProducts(registerProduct);
-                                System.out.println("registerProduct = " + inventory);
+                            saveProduct(registrationOfIncomingProducts, register, stock);
 
-                            } catch (NumberFormatException er) {
-                                System.out.println("the type of value entered is incorrect try again");
-                            }
+                            System.out.println("=======================================================");
+                            System.out.println("Would you like to enter another product? \n Enter the number: \n(1)Yes \n(2)NO \nEnter the number:");
+                            followAction = console.nextInt();
+                            System.out.println("=======================================================");
 
-                            System.out.println("=========================================");
-                            System.out.println("Enter\n -yes if you want to add more products. \n-no if not return to main menu.\nEnter the option:");
-                            followAction = console.nextLine();
+                            registrationOfIncomingProducts++;
 
-                        } while (followAction.equals("yes"));
-
-                        break;
-
+                        }
                     }
+
                     case 2 -> {
-                        int options = 0;
-                        while (options != 5) {
-                            System.out.println("____________Welcome to Inventory_________");
-                            System.out.println("1.Eliminate stock of a product");
-                            System.out.println("2.Show products and stock");
-                            System.out.println("3.Exit");
 
-                            try {
-                                System.out.println("Type an option:");
-                                options = Integer.parseInt(console.nextLine());
-                                String product;
-                                int stock, currentStock;
-                                switch (options) {
-                                    case 1: {
-                                        /*System.out.println("Enter the product you want to delete");
-                                        product = console.next();
-                                        inventory.remove(product);
-                                        System.out.println("Product deleted");*/
+                        int submenuOptions = 0;
+                        while (submenuOptions != 3) {
+                            submenu();
+                            submenuOptions = console.nextInt();
 
+                            switch (submenuOptions) {
+                                case 1 -> {
+
+                                    int confirmation = 1;
+                                    boolean validationName = true;
+                                    int search = 2;
+                                    int answer;
+                                    int eliminateQuantity;
+                                    int increaseTheQuantity;
+                                    int existingAmount;
+                                    int amounts;
+
+                                    if (registrationOfIncomingProducts != 0) {
+                                        while (confirmation == 1) {
+                                            printList(registrationOfIncomingProducts, stock);
+
+                                            System.out.print("Enter the number of the product you wish to modify the stock:\t");
+                                            search = console.nextInt();
+
+                                            while (search <= 0 || search > stock.size()) {
+                                                System.out.println("Not registered");
+                                                System.out.println("Enter again:");
+                                                search = console.nextInt();
+                                            }
+
+                                            search -= 1;
+                                            System.out.println("======================================");
+                                            System.out.println("Select:\n(1)Do you want to eliminate stock?\n(2)Do you want to increase stock?\nEnter your answer:");
+                                            answer = console.nextInt();
+
+                                            if (answer == 1) {
+                                                printSelectedProduct(stock, search);
+                                                eliminateQuantity = console.nextInt();
+                                                existingAmount = stock.get(search).getAmount();
+                                                eliminateQuantity = checkQuantityToBeEliminated(eliminateQuantity, existingAmount, console);
+
+                                                amounts = existingAmount - eliminateQuantity;
+
+                                                stock.get(search).setAmount(amounts);
+                                                printModified(stock, search);
+                                                addJson(stock);
+                                                confirmation = 2;
+
+                                            } else if (answer == 2) {
+                                                printProductIncreased(stock, search);
+                                                increaseTheQuantity = console.nextInt();
+                                                existingAmount = stock.get(search).getAmount();
+                                                amounts = existingAmount + increaseTheQuantity;
+
+                                                stock.get(search).setAmount(amounts);
+                                                printModified(stock, search);
+                                                addJson(stock);
+                                                confirmation = 2;
+
+                                            } else {
+                                                System.out.println("The options are from 1 to 2");
+
+                                            }
+
+                                        }
+
+                                    } else {
+                                        System.out.println("No products have been registered yet");
                                     }
-                                    break;
-                                    case 2: {
-
-                                        /*for (int i = 0; i < inventory.size(); i++) {
-
-                                            System.out.println("introduced or added \t--> " + inventory.get(i).getName());
-                                            System.out.println("product packagest \t--> " + inventory.get(i).getAmount());
-                                            System.out.println("full value is $ \t--> " + inventory.get(i).getUnitPrice());
-                                        }*/
-                                    }
-
-                                    break;
-                                    case 3:
-                                        options = 5;
-
-                                    default:
-                                        System.out.println("The options are from 1 to 5");
 
                                 }
+                                case 2 -> {
+                                    if (registrationOfIncomingProducts != 0) {
 
-                            } catch (InputMismatchException exception) {
-                                System.out.println("Please try again, only numbers are allowed.:");
-                                options = Integer.parseInt(console.nextLine());
+                                        printAllListOfProduct(stock, position);
 
-                            } catch (NumberFormatException e) {
-                                e.printStackTrace();
+                                    } else {
+                                        System.out.println("No prodcuts have been registered yet");
+
+                                    }
+                                }
+
+                                case 3 -> {
+
+                                    submenuOptions = 3;
+                                    break;
+                                }
+                                default ->
+                                    System.out.println("The options are from 1 to 3");
+
                             }
 
                         }
 
                     }
                     case 3 -> {
+                        int itemToBeSold = 0;
+                        int productSell = 0;
+                        int existingAmount = 0;
+                        double UnitPrice;
+                        int amounts;
+                        if (registrationOfIncomingProducts != 0) {
+                            System.out.println("-------------------------Sales registration system-----------------");
+                            System.out.println("=======================================================");
+                            System.out.println("--------List of products in stock:---------");
+                            System.out.println("Name\t\t\t\t  UnitPrice\t\t\t");
+                            for (int i = 0; i < registrationOfIncomingProducts; i++) {
 
-                        
-                        try {
-                            String acept;
-                            System.out.println("You want to remove a product from inventory");
-                            acept = console.nextLine();
+                                System.out.printf("[%d].%s \t\t\t   %.2f\t\t\t\t   \n", (i + 1), stock.get(i).getName(), stock.get(i).getUnitPrice());
 
-                            if (acept.equals("yes")) {
-
-                                inventory.Remove();
-                                
-
-                            } else {
-                                System.out.println("-------------------------------------");
                             }
-                        } catch (java.util.InputMismatchException error) {
-                            System.err.println("ERROR!, Please enter only yes or no");
-                        }
 
+                            System.out.print("Enter the item number of the item to be sold:\t");
+                            itemToBeSold = console.nextInt();
+
+                            while (itemToBeSold <= 0 || itemToBeSold > stock.size()) {
+                                System.out.println("Not registered");
+                                System.out.println("Enter again:");
+                                itemToBeSold = console.nextInt();
+                            }
+                            itemToBeSold -= 1;
+                            System.out.print("Enter the quantity to be sold:\t");
+                            productSell = console.nextInt();//quantity of product sold
+                            existingAmount = stock.get(itemToBeSold).getAmount();
+                            UnitPrice = stock.get(itemToBeSold).getUnitPrice();
+
+                            while (productSell > existingAmount) {
+                                System.out.println("The quantity to be sold entered exceeds the existing quantity in stock¡¡");
+                                System.out.print("Re-enter the quantity to be sold:\t");
+                                productSell = console.nextInt();
+                            }
+                            System.out.println("==========================");
+                            var multiply = productSell * UnitPrice;
+
+                            System.out.println("Name\t\t\t\t  UnitPrice\t\t\t Total price");
+
+                            System.out.printf("[%d].%s \t\t\t   %.2f\t\t\t\t %.2f  \n", (itemToBeSold), stock.get(itemToBeSold).getName(), stock.get(itemToBeSold).getUnitPrice(), multiply);
+
+                            amounts = existingAmount - productSell;
+                            stock.get(itemToBeSold).setAmount(amounts);
+                            addJson(stock);
+                        } else {
+                            System.out.println("No prodcuts have been registered yet");
+
+                        }
                     }
                     case 4 ->
                         exit = true;
@@ -163,159 +228,64 @@ public class HuertoEcoMarketSimulator {
 
     }
 
-    private static RegisterProduct registerProduct(Scanner console) throws NumberFormatException {
-        String name;
-        int amount;
-        double unitPrice;
-        String registerproducts = "";
-        ArrayList<Inventory> inventory = new ArrayList<>();
-        Inventory inventorys = new Inventory();
-
-        System.out.println("Enter the name of the Product to register:");
-        name = console.nextLine();
-        System.out.println("Enter the number of boxes:");
-        amount = Integer.parseInt(console.nextLine());
-        System.out.println("Enter the unit price:");
-        unitPrice = Double.parseDouble(console.nextLine());
-        RegisterProduct registerProduct = new RegisterProduct(name, amount, unitPrice);
-        registerProduct.setName(name);
-        registerProduct.setAmount(amount);
-        registerProduct.setUnitPrice(unitPrice);
-        SaveDataJson(inventory);
-        inventory.add(inventorys);
-        return registerProduct;
+    private static void printModified(ArrayList<Inventory> stock, int search) {
+        System.out.println("-----------Modified quantity-----------");
+        System.out.println("Name product:\t\t" + stock.get(search).getName());
+        System.out.println("quantity in inventory:\t " + stock.get(search).getAmount());
+        System.out.println("-----------Modified quantity-----------");
     }
 
-    private static void printProducts(RegisterProduct registerProduct) {
-        System.out.println("introduced or added \t--> " + registerProduct.getName());
-        System.out.println("product packagest \t--> " + registerProduct.getAmount());
-        System.out.println("full value is $ \t--> " + registerProduct.getUnitPrice());
-    }
+    private static void printAllListOfProduct(ArrayList<Inventory> stock, int position) {
+        System.out.println("=======================================================");
+        System.out.println("--------       Inventory:      ---------");
+        System.out.println("\tName\t\t\tUnitPrice\t\t\tAmount");
 
-    private static void HeaderOfThePresentation(int position) {
-        if (position == 0) {
-            System.out.println("       UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE       ");
-            System.out.println("                       Project");
-            System.out.println("                  HUERTO ECO-MARKET\n");
-            System.out.println("      Integrantes: Reishel Tipan\n"
-                    + "                   David Toapanta\n"
-                    + "                   Carlos Torres\n"
-                    + "                   Alex Trejo\n");
+        for (int i = 0; i < stock.size(); i++) {
 
-            System.out.println("             Instructor: Edison Lascano");
-            System.out.println("=========================================================");
-            System.out.println("        ¡WELCOME TO CHICKEN FARM SIMULATOR :)!       ");
-            System.out.println("______________________________________________________________");
-        }
+            System.out.printf("[%d].%s \t\t\t%.2f\t\t\t\t %d\n", (i + 1), stock.get(i).getName(), stock.get(i).getUnitPrice(), stock.get(i).getAmount());
+            position++;
 
-        System.out.println("_____________Menu________________");
-        System.out.println("1)- register products:");
-        System.out.println("2)- Inventory:");
-        System.out.println("3)- sale:");
-        System.out.println("4)-Log out");
-        System.out.println("Enter the option:");
-    }
-
-    private static void SaveDataJson(ArrayList<Inventory> inventory) {
-        Gson gson = new Gson();
-        String json = gson.toJson(inventory);
-        File file = new File("./inventory.json");
-        try ( FileWriter writt = new FileWriter(file);) {
-            writt.write(json);
-            System.out.println("File converted to Json");
-        } catch (Exception err) {
-            System.out.println("ERROR! Problems saving the file");
         }
     }
 
-    /*private static void readFile(ArrayList<Inventory> inventory) throws org.json.simple.parser.ParseException {
-
-        JSONParser parser = new JSONParser();
-        try {
-            Object object = parser.parse(new FileReader("HuertoEcoMarket.json"));
-            JSONObject jsonObject = (JSONObject) object;
-            JSONArray inventoryArray = (JSONArray) jsonObject.get("list");
-
-            for (int i = 0; i < inventoryArray.size(); i++) {
-                
-                 Inventory inventorys = new Inventory();
-                Object objectEco = inventoryArray.get(i);
-                JSONObject objectEcoJSON = (JSONObject) objectEco;
-
-                inventorys.setName(objectEcoJSON.get("name").toString());
-                inventorys.setAmount(Integer.parseInt(objectEcoJSON.get("amount").toString()));
-                inventorys.setUnitPrice(Integer.parseInt(objectEcoJSON.get("UnitPrice").toString()));
-                
-
-                inventory.add(inventorys);
-            }
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("Error reading file (FNF): " + ex);
-        } catch (IOException ex) {
-            System.out.println("Error reading file (IOE): " + ex);
-        }
-
+    private static void printProductIncreased(ArrayList<Inventory> stock, int search) {
+        System.out.println("Name product:\t\t\t" + stock.get(search).getName());
+        System.out.println("quantity in inventory:\t\t " + stock.get(search).getAmount());
+        System.out.println("Enter the amount to be increased:\t");
     }
-    
-   
-    
-     private static void saveInventory(ArrayList<Inventory> inventory) {
-        File fileJson = new File("HuertoEcoMarket.json");
 
-        if (!inventory.isEmpty()) {
-            try {
-                readFile(inventory);
-                JSONObject chickensJSON = new JSONObject();
-                JSONArray list = new JSONArray();
-
-                for (int i = 0; i < inventory.size(); i++) {
-                    JSONObject listJSON = new JSONObject();
-
-                    listJSON.put("name", inventory.get(i).getName());
-                    listJSON.put("amount", inventory.get(i).getAmount());
-                    listJSON.put("unitPrice", inventory.get(i).getUnitPrice());
-                    
-                    list.add(listJSON);
-
-                }
-
-                chickensJSON.put("list", list);
-
-                try ( FileWriter file = new FileWriter(fileJson)) {
-                    file.write(chickensJSON.toString());
-                    file.flush();
-                } catch (IOException e) {
-                    System.out.println("Error writing file");
-                }
-
-            } catch (org.json.simple.parser.ParseException ex) {
-                Logger.getLogger(HuertoEcoMarketSimulator.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    private static int checkQuantityToBeEliminated(int eliminateQuantity, int existingAmount, Scanner console) {
+        while (eliminateQuantity > existingAmount) {
+            System.out.println("The quantity to be removed entered exceeds the existing quantity in stock¡¡");
+            System.out.print("Re-enter the quantity to be deleted:\t");
+            eliminateQuantity = console.nextInt();
 
         }
-    }*/
-    
-    
-    
-    
-    /*private static void inventory(File file) {
-        try {
-            Scanner scanFile = new Scanner inventory(file);
+        return eliminateQuantity;
+    }
 
-            ArrayList<RegisterProduct> listOfProductsSale = file(scanFile);
-            System.out.println("===============LIST COMPLETE OF CHICKENS====================");
-            System.out.println("");
-            System.out.printf("   %10s %10s %10s %6s %15s", "NAME", "AMOUNT", "UNITPRICE");
-            System.out.println();
-            for (RegisterProduct registerProduct : listOfProductsSale) {
-                System.out.format("   %10s %10s %10s %6s %15s", registerProduct.getName(), registerProduct.getAmount(), registerProduct.getUnitPrice());
-                System.out.println();
-            }
-            System.out.println("============================================================");
+    private static void printSelectedProduct(ArrayList<Inventory> stock, int search) {
+        System.out.println("Name product:\t\t\t" + stock.get(search).getName());
+        System.out.println("quantity in inventory:\t\t " + stock.get(search).getAmount());
+        System.out.println("Enter the quantity to be removed:\t");
+    }
 
-        } catch (FileNotFoundException error) {
-            System.err.println("Oops, Error: file not found");
+    private static void printList(int registrationOfIncomingProducts, ArrayList<Inventory> stock) {
+        String products;
+        System.out.println("=======================================================");
+        System.out.println("--------List of products in stock:---------");
+        System.out.println("Name\t\t\t\t  UnitPrice\t\t\tAmount");
+        for (int i = 0; i < registrationOfIncomingProducts; i++) {
+            products = stock.get(i).getName();
+            System.out.printf("[%d].%s \t\t\t   %.2f\t\t\t\t   %d\n", (i + 1), stock.get(i).getName(), stock.get(i).getUnitPrice(), stock.get(i).getAmount());
+
         }
-    }*/
-}
+    }
+
+    private static void submenu() {
+        System.out.println("____________Welcome to Inventory_________");
+        System.out.println("1.Eliminate/increase stock of a product");
+        System.out.println("2.Show products and stock");
+        System.out.println("3.Exit");
+        System.out.print("Type an option:\t");
+    }
