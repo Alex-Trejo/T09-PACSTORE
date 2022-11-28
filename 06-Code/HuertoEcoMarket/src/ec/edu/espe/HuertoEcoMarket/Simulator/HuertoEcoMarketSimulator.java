@@ -93,7 +93,7 @@ public class HuertoEcoMarketSimulator {
                                                 System.out.println("Enter again:");
                                                 search = console.nextInt();
                                             }
-                                            
+
                                             search -= 1;
                                             System.out.println("======================================");
                                             System.out.println("Select:\n(1)Do you want to eliminate stock?\n(2)Do you want to increase stock?\nEnter your answer:");
@@ -189,3 +189,103 @@ public class HuertoEcoMarketSimulator {
                             productSell = console.nextInt();//quantity of product sold
                             existingAmount = stock.get(itemToBeSold).getAmount();
                             UnitPrice = stock.get(itemToBeSold).getUnitPrice();
+
+                            while (productSell > existingAmount) {
+                                System.out.println("The quantity to be sold entered exceeds the existing quantity in stock¡¡");
+                                System.out.print("Re-enter the quantity to be sold:\t");
+                                productSell = console.nextInt();
+                            }
+                            System.out.println("==========================");
+                            var multiply = productSell * UnitPrice;
+
+                            System.out.println("Name\t\t\t\t  UnitPrice\t\t\t Total price");
+
+                            System.out.printf("[%d].%s \t\t\t   %.2f\t\t\t\t %.2f  \n", (itemToBeSold), stock.get(itemToBeSold).getName(), stock.get(itemToBeSold).getUnitPrice(), multiply);
+
+                            amounts = existingAmount - productSell;
+                            stock.get(itemToBeSold).setAmount(amounts);
+                            addJson(stock);
+                        } else {
+                            System.out.println("No prodcuts have been registered yet");
+
+                        }
+                    }
+                    case 4 ->
+                        exit = true;
+                    default ->
+                        System.out.println("The options are from 1 to 4");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("You only have to enter numbers");
+                console.next();
+
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+
+        }
+        System.out.println("_______End of menu_________");
+
+    }
+
+    private static void printModified(ArrayList<Inventory> stock, int search) {
+        System.out.println("-----------Modified quantity-----------");
+        System.out.println("Name product:\t\t" + stock.get(search).getName());
+        System.out.println("quantity in inventory:\t " + stock.get(search).getAmount());
+        System.out.println("-----------Modified quantity-----------");
+    }
+
+    private static void printAllListOfProduct(ArrayList<Inventory> stock, int position) {
+        System.out.println("=======================================================");
+        System.out.println("--------       Inventory:      ---------");
+        System.out.println("\tName\t\t\tUnitPrice\t\t\tAmount");
+
+        for (int i = 0; i < stock.size(); i++) {
+
+            System.out.printf("[%d].%s \t\t\t%.2f\t\t\t\t %d\n", (i + 1), stock.get(i).getName(), stock.get(i).getUnitPrice(), stock.get(i).getAmount());
+            position++;
+
+        }
+    }
+
+    private static void printProductIncreased(ArrayList<Inventory> stock, int search) {
+        System.out.println("Name product:\t\t\t" + stock.get(search).getName());
+        System.out.println("quantity in inventory:\t\t " + stock.get(search).getAmount());
+        System.out.println("Enter the amount to be increased:\t");
+    }
+
+    private static int checkQuantityToBeEliminated(int eliminateQuantity, int existingAmount, Scanner console) {
+        while (eliminateQuantity > existingAmount) {
+            System.out.println("The quantity to be removed entered exceeds the existing quantity in stock¡¡");
+            System.out.print("Re-enter the quantity to be deleted:\t");
+            eliminateQuantity = console.nextInt();
+
+        }
+        return eliminateQuantity;
+    }
+
+    private static void printSelectedProduct(ArrayList<Inventory> stock, int search) {
+        System.out.println("Name product:\t\t\t" + stock.get(search).getName());
+        System.out.println("quantity in inventory:\t\t " + stock.get(search).getAmount());
+        System.out.println("Enter the quantity to be removed:\t");
+    }
+
+    private static void printList(int registrationOfIncomingProducts, ArrayList<Inventory> stock) {
+        String products;
+        System.out.println("=======================================================");
+        System.out.println("--------List of products in stock:---------");
+        System.out.println("Name\t\t\t\t  UnitPrice\t\t\tAmount");
+        for (int i = 0; i < registrationOfIncomingProducts; i++) {
+            products = stock.get(i).getName();
+            System.out.printf("[%d].%s \t\t\t   %.2f\t\t\t\t   %d\n", (i + 1), stock.get(i).getName(), stock.get(i).getUnitPrice(), stock.get(i).getAmount());
+
+        }
+    }
+
+    private static void submenu() {
+        System.out.println("____________Welcome to Inventory_________");
+        System.out.println("1.Eliminate/increase stock of a product");
+        System.out.println("2.Show products and stock");
+        System.out.println("3.Exit");
+        System.out.print("Type an option:\t");
+    }
