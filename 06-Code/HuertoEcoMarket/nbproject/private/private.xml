@@ -1,12 +1,10 @@
+compile.on.save=true
+user.properties.file=C:\Users\ASUS\AppData\Roaming\NetBeans\15\build.properties
+=====
 <?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1%22%3E
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/TA/Documents/U%20oct-mar/PROG.%20A%20OBJETOS/T09-PACSTORE/06-Code/HuertoEcoMarket/src/ec/edu/espe/HuertoEcoMarket/model/Sales.java</file>
-            <file>file:/C:/Users/TA/Documents/U%20oct-mar/PROG.%20A%20OBJETOS/T09-PACSTORE/06-Code/HuertoEcoMarket/src/ec/edu/espe/HuertoEcoMarket/model/RegisterProduct.java</file>
-            <file>file:/C:/Users/TA/Documents/U%20oct-mar/PROG.%20A%20OBJETOS/T09-PACSTORE/06-Code/HuertoEcoMarket/src/ec/edu/espe/HuertoEcoMarket/model/Inventory.java</file>
-            <file>file:/C:/Users/TA/Documents/U%20oct-mar/PROG.%20A%20OBJETOS/T09-PACSTORE/06-Code/HuertoEcoMarket/src/ec/edu/espe/HuertoEcoMarket/Simulator/HuertoEcoMarketSimulator.java</file>
-        </group>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2%22%3E
+        <group/>
     </open-files>
 </project-private>
