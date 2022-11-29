@@ -7,25 +7,24 @@ package ec.edu.espe.HuertoEcoMarket.model;
 public class RegisterProduct {
 
     private String name;
-    private int amount;
     private double unitPrice;
 
     public RegisterProduct(String name, int amount, double unitPrice) {
         this.name = name;
-        this.amount = amount;
         this.unitPrice = unitPrice;
     }
-    
+
     public RegisterProduct() {
-        this.name = "";
-        this.amount = 0;
-        this.unitPrice = 0.0;
+        name = "";
+        unitPrice = 0.0d;
     }
-    
+
     @Override
     public String toString() {
-        return "RegisterProduct{" + "name=" + name + ", amount=" + amount + ", unitPrice=" + unitPrice + '}';
+        return "RegisterProduct{" + "name=" + name + ", unitPrice=" + unitPrice + '}';
     }
+
+    
 
     /**
      * @return the name
@@ -42,20 +41,6 @@ public class RegisterProduct {
     }
 
     /**
-     * @return the amount
-     */
-    public int getAmount() {
-        return amount;
-    }
-
-    /**
-     * @param amount the amount to set
-     */
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    /**
      * @return the unitPrice
      */
     public double getUnitPrice() {
@@ -67,6 +52,10 @@ public class RegisterProduct {
      */
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public void setAmount(int amount) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
