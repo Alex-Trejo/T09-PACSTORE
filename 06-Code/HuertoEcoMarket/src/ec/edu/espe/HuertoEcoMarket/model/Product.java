@@ -4,17 +4,17 @@ package ec.edu.espe.HuertoEcoMarket.model;
  *
  * @author Reishel Tipan, PACSTORE, DCCO-ESPE
  */
-public class RegisterProduct {
+public class Product {
 
     private String name;
     private double unitPrice;
 
-    public RegisterProduct(String name, int amount, double unitPrice) {
+    public Product(String name, int amount, double unitPrice) {
         this.name = name;
         this.unitPrice = unitPrice;
     }
 
-    public RegisterProduct() {
+    public Product() {
         name = "";
         unitPrice = 0.0d;
     }

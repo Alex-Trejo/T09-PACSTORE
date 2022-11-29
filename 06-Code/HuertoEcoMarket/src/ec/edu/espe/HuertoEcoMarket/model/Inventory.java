@@ -60,9 +60,5 @@ public class Inventory {
         this.amount = amount;
     }
 
- 
-
-  
- 
 
 }
