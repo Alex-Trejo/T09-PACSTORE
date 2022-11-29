@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.HuertoEcoMarket.model.Inventory;
-import ec.edu.espe.HuertoEcoMarket.model.RegisterProduct;
+import ec.edu.espe.HuertoEcoMarket.model.Product;
 import ec.edu.espe.HuertoEcoMarket.model.Sale;
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +36,7 @@ public class HuertoEcoMarketSimulator {
 
         int registrationOfIncomingProducts = 0;
         ArrayList<Inventory> stock = new ArrayList<>();
-        ArrayList<RegisterProduct> register = new ArrayList<>();
+        ArrayList<Product> register = new ArrayList<>();
         ArrayList<Sale> sale = new ArrayList<>();
         Sale saleRecord = new Sale();
         
@@ -93,7 +93,7 @@ public class HuertoEcoMarketSimulator {
                                             search = compareQuantityInStock(search, stock, console);
 
                                             search -= 1;
-                                            System.out.println("======================================");
+                                            System.out.println("=======================================================");
                                             System.out.println("Select:\n(1)Do you want to eliminate stock?\n(2)Do you want to increase stock?\nEnter your answer:");
                                             answer = console.nextInt();
 
@@ -136,9 +136,9 @@ public class HuertoEcoMarketSimulator {
                                 case 2 -> {
                                     int numberOfProducts; 
                                     ArrayList<Inventory> inventoryRead=new ArrayList<>();
-                                    ArrayList<RegisterProduct> productRead= new ArrayList<>();
+                                    ArrayList<Product> productRead= new ArrayList<>();
                                     inventoryRead=readJSONInventory(inventoryRead);
-                                    productRead=readJSONRegisterProduct(productRead);
+                                    productRead=readJSONProduct(productRead);
                                     numberOfProducts=inventoryRead.size();
                                     
                                     if (numberOfProducts != 0) {
@@ -186,7 +186,7 @@ public class HuertoEcoMarketSimulator {
                             UnitPrice = register.get(itemToBeSold).getUnitPrice();
 
                             productSell = checkStock (productSell, existingAmount, console);
-                            System.out.println("==========================");
+                            System.out.println("=======================================================");
                             var multiply = productSell * UnitPrice;
 
                             System.out.println("Name\t\t\t\t  UnitPrice\t\t\t Total price");
@@ -217,14 +217,14 @@ public class HuertoEcoMarketSimulator {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("You only have to enter numbers");
-                System.out.println("==================================");
+                System.out.println("=======================================================");
 
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
 
         }
-        System.out.println("_______End of menu_________");
+        System.out.println("___________________End of menu_____________________");
 
     }
 
@@ -237,10 +237,10 @@ public class HuertoEcoMarketSimulator {
         return productSell;
     }
 
-    private static void productListingForSale(int registrationOfIncomingProducts, ArrayList<RegisterProduct> register) {
-        System.out.println("-------------------------Sales registration system-----------------");
+    private static void productListingForSale(int registrationOfIncomingProducts, ArrayList<Product> register) {
+        System.out.println("--------------Sales registration system----------------");
         System.out.println("=======================================================");
-        System.out.println("--------List of products in stock:---------");
+        System.out.println("---------------List of products in stock:--------------");
         System.out.println("Name\t\t\t\t  UnitPrice\t\t\t");
         for (int i = 0; i < registrationOfIncomingProducts; i++) {
             
@@ -274,9 +274,9 @@ public class HuertoEcoMarketSimulator {
         System.out.println("-----------Modified quantity-----------");
     }
 
-    private static void printAllListOfProduct(ArrayList<Inventory> stock, int position, ArrayList<RegisterProduct> register) {
+    private static void printAllListOfProduct(ArrayList<Inventory> stock, int position, ArrayList<Product> register) {
         System.out.println("=======================================================");
-        System.out.println("--------       Inventory:      ---------");
+        System.out.println("----------------------Inventory------------------------");
         System.out.println("\tName\t\t\tUnitPrice\t\t\tAmount");
 
         for (int i = 0; i < stock.size(); i++) {
@@ -312,7 +312,7 @@ public class HuertoEcoMarketSimulator {
     private static void printList(int registrationOfIncomingProducts, ArrayList<Inventory> stock) {
 
         System.out.println("=======================================================");
-        System.out.println("--------List of products in stock:---------");
+        System.out.println("----------------List of products in stock:-------------");
         System.out.println("Name\t\t\t\t Amount");
         for (int i = 0; i < registrationOfIncomingProducts; i++) {
 
@@ -322,23 +322,24 @@ public class HuertoEcoMarketSimulator {
     }
 
     private static void submenu() {
-        System.out.println("____________Welcome to Inventory_________");
-        System.out.println("1.Eliminate/increase stock of a product");
-        System.out.println("2.Show products and stock");
-        System.out.println("3.Exit");
-        System.out.print("Type an option:\t");
+        System.out.println("------------------Welcome to Inventory-----------------");
+        System.out.println("  1.Eliminate/increase stock of a product");
+        System.out.println("  2.Show products and stock");
+        System.out.println("  3.Exit");
+        System.out.print("  Type an option:\t");
     }
 
-    private static void saveProduct(int registrationOfIncomingProducts, ArrayList<RegisterProduct> register, ArrayList<Inventory> stock) {
-        RegisterProduct enteredProduct = new RegisterProduct();
+    private static void saveProduct(int registrationOfIncomingProducts, ArrayList<Product> register, ArrayList<Inventory> stock) {
+        Product enteredProduct = new Product();
         Inventory products = new Inventory();
 
         String name = "";
         int amount = 0;
         double unitPrice = 0.0;
-
-        System.out.println("__________________Product registration system______________");
-        System.out.println("----------------------------Product" + (registrationOfIncomingProducts + 1) + "----------------");
+        
+        System.out.println("=======================================================");
+        System.out.println("______________Product registration system______________");
+        System.out.println("-----------------------Product" + (registrationOfIncomingProducts + 1) + "-----------------------");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -372,11 +373,13 @@ public class HuertoEcoMarketSimulator {
 
             System.out.println("Instructor: Edison Lascano");
             System.out.println("=========================================================");
-            System.out.println("¡WELCOME TO CHICKEN FARM SIMULATOR :)!       ");
-            System.out.println("______________________________________________________________");
+            System.out.println("       ¡WELCOME TO HUERTO ECO MARKET INVENTORY :)!       ");
+            System.out.println("_________________________________________________________");
+            System.out.println("=========================================================");
+
         }
 
-        System.out.println("_____________Menu________________");
+        System.out.println("-------------------------Menu--------------------------");
         System.out.println("1)Register products:");
         System.out.println("2)Inventory:");
         System.out.println("3)Sale:");
@@ -398,7 +401,7 @@ public class HuertoEcoMarketSimulator {
 
     }
 
-    private static void addJsonRegisterProduct(ArrayList<RegisterProduct> register) {
+    private static void addJsonRegisterProduct(ArrayList<Product> register) {
         String save = new Gson().toJson(register);
 
         try {
@@ -451,7 +454,7 @@ public class HuertoEcoMarketSimulator {
         return stocks;
     }
     
-    private static ArrayList<RegisterProduct> readJSONRegisterProduct(ArrayList<RegisterProduct> register) throws JsonSyntaxException {
+    private static ArrayList<Product> readJSONProduct(ArrayList<Product> register) throws JsonSyntaxException {
         String json = "";
         Gson gson = new Gson();
 
@@ -460,7 +463,7 @@ public class HuertoEcoMarketSimulator {
             String line = "";
             while ((line = br.readLine()) != null) {
                 json = line;
-                TypeToken<ArrayList<RegisterProduct>> types = new TypeToken<ArrayList<RegisterProduct>>() {
+                TypeToken<ArrayList<Product>> types = new TypeToken<ArrayList<Product>>() {
                 };
 
                 register = gson.fromJson(json, types.getType());
