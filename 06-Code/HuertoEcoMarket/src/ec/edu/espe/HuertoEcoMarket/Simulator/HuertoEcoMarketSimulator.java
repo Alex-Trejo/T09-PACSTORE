@@ -7,7 +7,6 @@ import ec.edu.espe.HuertoEcoMarket.model.Inventory;
 import ec.edu.espe.HuertoEcoMarket.model.Product;
 import ec.edu.espe.HuertoEcoMarket.model.Sale;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
