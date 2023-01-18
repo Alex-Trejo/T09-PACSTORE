@@ -27,8 +27,7 @@ public class EcoMarket {
 
         Employee employee = new Employee();
 
-        ArrayList<Inventory> stock = new ArrayList<>();
-        ArrayList<Product> register = new ArrayList<>();
+        
 
         Scanner scanner = new Scanner(System.in);
 
@@ -101,7 +100,7 @@ public class EcoMarket {
                                     }
 
                                     case 3 -> {
-                                        FileManager.saleProduct();
+                                        FileManager.saleProductManager(manager);
 
                                     }
 
@@ -131,11 +130,17 @@ public class EcoMarket {
                     case 2 -> {
 
                         int state;
+                        boolean statusTwo=true;
+                        
                         int optionEmployee;
                         employee = FileManager.userLoginEmployee();
                         state = FileManager.validateUserEmployee(employee);
-                        state = FileManager.reenterEmployeeData(state);
-                        while (state != 0) {
+                        
+                        employee = FileManager.reenterEmployeeData(state);
+                        
+                        
+                        System.out.println("name+asas-->"+employee.getName()); 
+                        while (statusTwo!=false) {
                             FileManager.actionsOfTheEmployee();
 
                             try {
@@ -144,7 +149,8 @@ public class EcoMarket {
 
                                 switch (optionEmployee) {
                                     case 1 -> {
-                                        FileManager.saleProduct();
+                                        System.out.println("name__z"+employee.getName());
+                                        FileManager.saleProductEmployee(employee.getName());
 
                                     }
 

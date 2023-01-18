@@ -11,7 +11,10 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import ec.edu.espe.ecomarket.model.Customer;
+import ec.edu.espe.ecomarket.model.EmailCustomer;
 import ec.edu.espe.ecomarket.model.Employee;
+import ec.edu.espe.ecomarket.model.IdCustomer;
 import ec.edu.espe.ecomarket.model.Inventory;
 import ec.edu.espe.ecomarket.model.Manager;
 import ec.edu.espe.ecomarket.model.Product;
@@ -142,8 +145,8 @@ public class FileManager {
 
     }//
 
-    public static int reenterEmployeeData(int state) {
-        Employee employee;
+    public static Employee reenterEmployeeData(int state) {
+        Employee employee= new Employee();
         while (state == 0) {
             System.out.println("______________________________________");
             System.out.println("Re-enter the data ");
@@ -151,7 +154,7 @@ public class FileManager {
             state = validateUserEmployee(employee);
         }
 
-        return state;
+        return employee;
 
     }//
 
@@ -333,7 +336,7 @@ public class FileManager {
         }
     }//
 
-    public static void saleProduct() {
+    public static void saleProductManager(Manager manager) {
 
         int addAnotherProduct = 1;
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
@@ -347,13 +350,47 @@ public class FileManager {
                 MongoCollection<Document> productCollection = database.getCollection("Product");
                 MongoCollection<Document> salesRecordCollection = database.getCollection("SalesRecord");
                 MongoCollection<Document> inventoryCollection = database.getCollection("Inventory");
+                MongoCollection<Document> customerCollection = database.getCollection("Customer");
                 Sale sale = new Sale();
 
                 printAllProducts(productCollection);
 
                 while (addAnotherProduct == 1) {
 
-                    registerSale(productCollection, sale, salesRecordCollection, inventoryCollection);
+                    registerSale(productCollection, sale, salesRecordCollection, inventoryCollection, customerCollection, manager.getName());
+
+                    addAnotherProduct = moreSale();
+                }
+
+            } catch (MongoException me) {
+                System.out.println("An error occurred while attempting to connect: " + me);
+            }
+        }
+    }//
+
+    public static void saleProductEmployee(String name) {
+
+        int addAnotherProduct = 1;
+        String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
+        System.out.println("___________________________________________________________________________________________");
+        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
+            try {
+
+                System.out.println("The connection to the EcoMarketS database was successful.");
+                System.out.println("_________________________________________________________________________________________");
+                MongoCollection<Document> productCollection = database.getCollection("Product");
+                MongoCollection<Document> salesRecordCollection = database.getCollection("SalesRecord");
+                MongoCollection<Document> inventoryCollection = database.getCollection("Inventory");
+                MongoCollection<Document> customerCollection = database.getCollection("Customer");
+                Sale sale = new Sale();
+
+                printAllProducts(productCollection);
+                System.out.println("name--->"+name);
+
+                while (addAnotherProduct == 1) {
+
+                    registerSale(productCollection, sale, salesRecordCollection, inventoryCollection, customerCollection, name);
 
                     addAnotherProduct = moreSale();
                 }
@@ -373,18 +410,56 @@ public class FileManager {
         return addAnotherProduct;
     }//
 
-    private static void registerSale(MongoCollection<Document> productCollection, Sale sale, MongoCollection<Document> salesRecordCollection, MongoCollection<Document> inventoryCollection) {
+    private static void registerSale(MongoCollection<Document> productCollection, Sale sale, MongoCollection<Document> salesRecordCollection, MongoCollection<Document> inventoryCollection, MongoCollection<Document> customerCollection, String name) {
         String nameProductSell;
+        Customer customer = new Customer();
+
         int quantity;
         double unitPrice;
         int registeredQuantity;
         double totalMoney;
+        boolean validateId = false;
+        boolean validateEmailEntered = false;
+
+        System.out.println("name__>"+name);
+        System.out.print("Enter the name of the customer:\t");
+        customer.setNameOfClient(scanner.next());
+        //System.out.println("Numero de veces que ha venido");
+        System.out.print("Enter of ID:\t");
+        customer.setIdCustomer(scanner.next());
+
+        validateId = IdCustomer.validateID(customer.getIdCustomer());
+
+        while (validateId == false) {
+
+            System.out.print("The entered ID is incorrect, please enter again:\t");
+            customer.setIdCustomer(scanner.next());
+            validateId = IdCustomer.validateID(customer.getIdCustomer());
+
+        }
+
+        System.out.print("Enter of email:\t");
+        customer.setEmail(scanner.next());
+
+        validateEmailEntered = EmailCustomer.validateEmail(customer.getEmail());
+
+        while (validateEmailEntered == false) {
+
+            System.out.print("The email is incorrect, please enter again:\t");
+            customer.setEmail(scanner.next());
+            validateEmailEntered = EmailCustomer.validateEmail(customer.getEmail());
+        }
+
         System.out.print("Enter the name of the product to sell:\t");
         nameProductSell = scanner.next();
         System.out.print("Enter the quantity to sell:\t");
         quantity = scanner.nextInt();
         System.out.println("___________________________________________________");
+
+        Bson filterCustomer = Filters.eq("name of customer", customer.getNameOfClient());
+
         Bson filter = Filters.eq("name of Product", nameProductSell);
+
         Document doc = productCollection.find(Filters.and(filter)).first();
         unitPrice = doc.getDouble("unit price");
         registeredQuantity = doc.getInteger("amount", quantity);
@@ -398,11 +473,36 @@ public class FileManager {
         sale.setNameOfProduct(nameProductSell);
         sale.setAmountOfProductSold(quantity);
         sale.setTotalMoney(totalMoney);
+
+        if (customerCollection.find(filterCustomer).first() == null) {
+            customer.setNumberOfTimesHeHasCome(1);
+
+            Document customerNew = new Document("_id", new ObjectId())
+                    .append("name of customer", customer.getNameOfClient())
+                    .append("id", customer.getIdCustomer())
+                    .append("number Of Times He Has Come", customer.getNumberOfTimesHeHasCome())
+                    .append("email", customer.getEmail());
+
+            customerCollection.insertOne(customerNew);
+
+        }
+
+        if (customerCollection.find(filterCustomer).first() != null) {
+
+            Bson updateCustomer = Updates.inc("number Of Times He Has Come", +1);
+
+            customerCollection.updateOne(filterCustomer, updateCustomer);
+
+            System.out.println("The sale has been registered");
+
+        }
+
         if (salesRecordCollection.find(filter).first() == null) {
             Document saleProduct = new Document("_id", new ObjectId())
                     /*.append("name of Product", sale.getNameOfProduct())
                     .append("amount sold", sale.getAmountOfProductSold())
                     .append("unit price", sale.getTotalMoney());*/
+                    .append("name of employeed", name)
                     .append("name of Product", doc.get("name of Product"))
                     .append("amount sold", sale.getAmountOfProductSold())
                     .append("unit price", doc.getDouble("unit price"))
@@ -714,6 +814,7 @@ public class FileManager {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         Employee employee = new Employee();
+        int answer = 0;
 
         System.out.println("___________________________________________________________________________________________");
         try ( MongoClient mongoClient = MongoClients.create(uri)) {
@@ -725,22 +826,30 @@ public class FileManager {
                 System.out.println("_________________________________________________________________________________________");
                 MongoCollection<Document> employeeCollection = database.getCollection("Employee");
 
-                employee = registerEmployee(employee);
+                System.out.println("1)Register new employee" + "2)Work report");
 
-                Bson filter = Filters.eq("user_name", employee.getUserName());
+                if (answer == 1) {
+                    employee = registerEmployee(employee);
 
-                if (employeeCollection.find(filter).first() == null) {
-                    Document employeeNew = new Document("_id", new ObjectId())
-                            .append("name", employee.getName())
-                            .append("user_name", employee.getUserName())
-                            .append("password", employee.getPassword());
+                    Bson filter = Filters.eq("user_name", employee.getUserName());
 
-                    employeeCollection.insertOne(employeeNew);
+                    if (employeeCollection.find(filter).first() == null) {
+                        Document employeeNew = new Document("_id", new ObjectId())
+                                .append("name", employee.getName())
+                                .append("user_name", employee.getUserName())
+                                .append("password", employee.getPassword());
 
-                } else if (employeeCollection.find(filter).first() != null) {
+                        employeeCollection.insertOne(employeeNew);
 
-                    System.out.println("This user name is already registered");
+                    } else if (employeeCollection.find(filter).first() != null) {
 
+                        System.out.println("This user name is already registered");
+
+                    }
+
+                }else if(answer==2){
+                    
+                
                 }
 
             } catch (MongoException me) {
@@ -797,7 +906,7 @@ public class FileManager {
         }
 
     }//
-    
+
     private static Document registerInventory(Product enteredProduct) throws NumberFormatException {
 
         Document inventory = new Document("_id", new ObjectId())
@@ -806,7 +915,7 @@ public class FileManager {
         return inventory;
 
     }//
-    
+
     private static Product registerProduct(Product enteredProduct) throws NumberFormatException {
         String name;
         double unitPrice;
@@ -838,7 +947,7 @@ public class FileManager {
         return productSell;
     }*/
 
-    /*public static void productListingForSale(int registrationOfIncomingProducts, ArrayList<Product> register) {
+ /*public static void productListingForSale(int registrationOfIncomingProducts, ArrayList<Product> register) {
         System.out.println("--------------Sales registration system----------------");
         System.out.println("=======================================================");
         System.out.println("---------------List of products in stock:--------------");
@@ -850,7 +959,7 @@ public class FileManager {
         }
     }*/
 
-    /*public static int compareQuantityInStock(int search, ArrayList<Inventory> stock, Scanner console) {
+ /*public static int compareQuantityInStock(int search, ArrayList<Inventory> stock, Scanner console) {
         while (search <= 0 || search > stock.size()) {
             System.out.println("Not registered");
             System.out.println("Enter again:");
@@ -859,14 +968,14 @@ public class FileManager {
         return search;
     }*/
 
-    /*public static void printModified(ArrayList<Inventory> stock, int search) {
+ /*public static void printModified(ArrayList<Inventory> stock, int search) {
         System.out.println("-----------Modified quantity-----------");
         System.out.println("Name product:\t\t" + stock.get(search).getName());
         System.out.println("quantity in inventory:\t " + stock.get(search).getAmount());
         System.out.println("-----------Modified quantity-----------");
     }*/
 
-    /*public static void printAllListOfProduct(ArrayList<Inventory> stock, int position, ArrayList<Product> register) {
+ /*public static void printAllListOfProduct(ArrayList<Inventory> stock, int position, ArrayList<Product> register) {
         System.out.println("=======================================================");
         System.out.println("----------------------Inventory------------------------");
         System.out.println("\tName\t\t\tUnitPrice\t\t\tAmount");
@@ -879,7 +988,7 @@ public class FileManager {
         }
     }*/
 
-    /*public static void printProductIncreased(ArrayList<Inventory> stock, int search) {
+ /*public static void printProductIncreased(ArrayList<Inventory> stock, int search) {
         System.out.println("Name product:\t\t\t" + stock.get(search).getName());
         System.out.println("quantity in inventory:\t\t " + stock.get(search).getAmount());
         System.out.println("Enter the amount to be increased:\t");
@@ -912,7 +1021,7 @@ public class FileManager {
 
         }
     }*/
-    /*public static void enteredProduct(Product enteredProduct) throws NumberFormatException {
+ /*public static void enteredProduct(Product enteredProduct) throws NumberFormatException {
         String name;
         double unitPrice;
         int amount;
@@ -926,12 +1035,7 @@ public class FileManager {
         enteredProduct.setUnitPrice(unitPrice);
         enteredProduct.setAmount(amount);
     }*/
-
-    
-
-    
-
-    /*public static void addJsonInventary(ArrayList<Inventory> stock) {
+ /*public static void addJsonInventary(ArrayList<Inventory> stock) {
         String save = new Gson().toJson(stock);
         try {
             try ( FileWriter write = new FileWriter("Inventary.json")) {
@@ -945,7 +1049,7 @@ public class FileManager {
 
     }*/
 
-    /*public static void addJsonRegisterProduct(ArrayList<Product> register) {
+ /*public static void addJsonRegisterProduct(ArrayList<Product> register) {
         String save = new Gson().toJson(register);
 
         try {
@@ -960,7 +1064,7 @@ public class FileManager {
 
     }*/
 
-    /*public static void addJsonSale(ArrayList<Sale> sale) {
+ /*public static void addJsonSale(ArrayList<Sale> sale) {
         String save = new Gson().toJson(sale);
         try {
             try ( FileWriter write = new FileWriter("Sale.json")) {
@@ -974,7 +1078,7 @@ public class FileManager {
 
     }*/
 
-   /* public static ArrayList<Inventory> readJSONInventory(ArrayList<Inventory> stocks) throws JsonSyntaxException {
+ /* public static ArrayList<Inventory> readJSONInventory(ArrayList<Inventory> stocks) throws JsonSyntaxException {
         String json = "";
         Gson gson = new Gson();
 
@@ -998,7 +1102,7 @@ public class FileManager {
         return stocks;
     }*/
 
-    /*public static ArrayList<Product> readJSONProduct(ArrayList<Product> register) throws JsonSyntaxException {
+ /*public static ArrayList<Product> readJSONProduct(ArrayList<Product> register) throws JsonSyntaxException {
         String json = "";
         Gson gson = new Gson();
 
@@ -1021,5 +1125,4 @@ public class FileManager {
         }
         return register;
     }*/
-
 }
