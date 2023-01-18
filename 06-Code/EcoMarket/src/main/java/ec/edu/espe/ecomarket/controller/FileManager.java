@@ -20,6 +20,7 @@ import ec.edu.espe.ecomarket.model.Manager;
 import ec.edu.espe.ecomarket.model.Product;
 import ec.edu.espe.ecomarket.model.Sale;
 import ec.edu.espe.ecomarket.view.EcoMarket;
+import ec.edu.espe.ecomarket.view.FrmLoginManager;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -66,31 +67,141 @@ public class FileManager {
         String userName;
         String password;
         Manager manager = new Manager();
-        System.out.println("==========================================================");
+        /*System.out.println("==========================================================");
         System.out.println("_______________User login_______________");
         System.out.print("Enter your username:\t");
         userName = scanner.next();
         System.out.print("Enter your password:\t");
-        password = scanner.next();
+        password = scanner.next();*/
+        
+       
 
-        manager.setUserName(userName);
-        manager.setPassword(password);
+        /*manager.setUserName();
+        manager.setPassword(password);*/
 
         return manager;
 
     }//
+    
+     public static Product findproduct(Product enteredProduct) {
+
+        String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
+        String data;
+        Product product = new Product();
+        Gson gson = new Gson();
+        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
+            try {
+                MongoCollection<Document> productCollection = database.getCollection("Product");
+
+                Bson filter = Filters.eq("name of Product", enteredProduct.getName());
+                try {
+                    Document doc = productCollection.find(Filters.and(filter)).first();
+
+                    String name = (String) doc.get("name of Product");
+                    double unitPrice = doc.getDouble("unit price");
+                    int amount = (int) doc.get("amount");
+
+                    product.setName(name);
+                    product.setUnitPrice(unitPrice);
+                    product.setAmount(amount);
+
+                } catch (Exception e) {
+                    System.out.println("Data not found");
+                }
+
+            } catch (MongoException me) {
+                System.out.println("An error occurred while attempting to connect: " + me);
+            }
+        }
+
+        return product;
+
+    }
+     
+      public static void saveProduct(Product enteredProduct) {
+
+        String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
+        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("Hw15");
+            try {
+                MongoCollection<Document> productCollection = database.getCollection("Product");
+
+                Document product = new Document("_id", new ObjectId())
+                        .append("name of Product", enteredProduct.getName())
+                        .append("amount", enteredProduct.getAmount())
+                        .append("unit price", enteredProduct.getUnitPrice());
+
+                productCollection.insertOne(product);
+
+            } catch (MongoException me) {
+                System.out.println("An error occurred while attempting to connect: " + me);
+            }
+        }
+    }
+      
+       public static void updateProduct(String nameInitial, Product enteredProduct) {
+
+        String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
+        System.out.println("___________________________________________________________________________________________");
+        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
+            try {
+
+                MongoCollection<Document> productCollection = database.getCollection("Product");
+                Bson filter = Filters.eq("name of Product", nameInitial);
+
+                Bson productUpdate = Updates.combine(
+                        Updates.set("name of Product", enteredProduct.getName()),
+                        Updates.set("amount", enteredProduct.getAmount()),
+                        Updates.set("unit price", enteredProduct.getUnitPrice())
+                );
+                productCollection.updateOne(filter, productUpdate);
+
+            } catch (Exception e) {
+                System.out.println("Data not found");
+            }
+        } catch (MongoException me) {
+            System.out.println("An error occurred while attempting to connect: " + me);
+        }
+
+    }
 
     public static int reenterManagerData(int state) {
         Manager manager;
         while (state == 0) {
-            System.out.println("______________________________________");
-            System.out.println("Re-enter the data ");
-            manager = FileManager.userLogin();
-            state = FileManager.validateUserManager(manager);
+            //manager = FileManager.userLogin();
+            //state = FileManager.validateUserManager(manager);
+            state=1;
         }
         return state;
     }//
+    
+    public static void eraseProduct(Product product) {
 
+        String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
+        System.out.println("___________________________________________________________________________________________");
+        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
+            try {
+
+                MongoCollection<Document> productCollection = database.getCollection("Product");
+
+                Bson filter = Filters.eq("name of Product", product.getName());
+
+                while (productCollection.find(filter).first() != null) {
+
+                    productCollection.deleteOne(filter);
+
+                }
+
+            } catch (MongoException me) {
+                System.out.println("An error occurred while attempting to connect: " + me);
+            }
+        }
+
+    }
+    
     public static int validateUserManager(Manager manager) {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
@@ -112,7 +223,7 @@ public class FileManager {
                     return state;
 
                 } catch (Exception e) {
-                    System.out.println("Data not found");
+                    
                     state = 0;
 
                 }
