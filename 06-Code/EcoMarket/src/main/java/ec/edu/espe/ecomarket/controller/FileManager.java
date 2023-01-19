@@ -43,47 +43,7 @@ public class FileManager {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void newMenu() {
-
-        System.out.println("       UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE       ");
-        System.out.println("                       Project");
-        System.out.println("                  HUERTO ECO-MARKET\n");
-        System.out.println("      Integrantes:\n\t\t\tReishel Tipan\n" + "\t\t\tDavid Toapanta\n" + "\t\t\tCarlos Torres\n" + "\t\t\tAlex Trejo\n");
-
-        System.out.println("Instructor: Edison Lascano");
-        System.out.println("=========================================================");
-        System.out.println("       ¡WELCOME TO HUERTO ECO MARKET INVENTORY :)!       ");
-        System.out.println("_________________________________________________________");
-        System.out.println("=========================================================");
-
-        System.out.println("______________Login_________________");
-        System.out.println("1.Manager");
-        System.out.println("2.Employee");
-        System.out.println("3.Exit");
-
-    }//
-
-    public static Manager userLogin() {
-        String userName;
-        String password;
-        Manager manager = new Manager();
-        /*System.out.println("==========================================================");
-        System.out.println("_______________User login_______________");
-        System.out.print("Enter your username:\t");
-        userName = scanner.next();
-        System.out.print("Enter your password:\t");
-        password = scanner.next();*/
-        
-       
-
-        /*manager.setUserName();
-        manager.setPassword(password);*/
-
-        return manager;
-
-    }//
-    
-     public static Product findproduct(Product enteredProduct) {
+    public static Product findproduct(Product enteredProduct) {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         String data;
@@ -118,12 +78,12 @@ public class FileManager {
         return product;
 
     }
-     
-      public static void saveProduct(Product enteredProduct) {
+
+    /*public static void saveProduct(Product enteredProduct) {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         try ( MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("Hw15");
+            MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
                 MongoCollection<Document> productCollection = database.getCollection("Product");
 
@@ -138,9 +98,58 @@ public class FileManager {
                 System.out.println("An error occurred while attempting to connect: " + me);
             }
         }
-    }
-      
-       public static void updateProduct(String nameInitial, Product enteredProduct) {
+    }*/
+    
+    
+    public static void saveProduct( Product enteredProducts) {//a//
+
+        String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
+        Product enteredProduct = new Product();
+
+        System.out.println("___________________________________________________________________________________________");
+        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
+
+            try {
+
+                System.out.println("The connection to the EcoMarketS database was successful.");
+                System.out.println("_________________________________________________________________________________________");
+                MongoCollection<Document> productCollection = database.getCollection("Product");
+                MongoCollection<Document> inventoryCollection = database.getCollection("Inventory");
+
+                
+
+
+                Bson filter = Filters.eq("name of Product", enteredProducts.getName());
+
+                if (productCollection.find(filter).first() == null) {
+                    Document product = new Document("_id", new ObjectId())
+                            .append("name of Product", enteredProducts.getName())
+                            .append("amount", enteredProducts.getAmount())
+                            .append("unit price", enteredProducts.getUnitPrice());
+
+                    productCollection.insertOne(product);
+                    Document inventory = registerInventory(enteredProducts);
+                    inventoryCollection.insertOne(inventory);
+                    System.out.println("New product has agragated: " + enteredProducts.getName());
+
+                } else if (productCollection.find(filter).first() != null) {
+
+                    System.out.println("This product is already registered");
+
+                }
+
+            } catch (MongoException me) {
+                System.out.println("An error occurred while attempting to connect: " + me);
+            }
+
+        }
+
+    }//
+    
+    
+
+    public static void updateProduct(String nameInitial, Product enteredProduct) {///****////
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
@@ -170,13 +179,12 @@ public class FileManager {
     public static int reenterManagerData(int state) {
         Manager manager;
         while (state == 0) {
-            //manager = FileManager.userLogin();
-            //state = FileManager.validateUserManager(manager);
-            state=1;
+            
+            state = 1;
         }
         return state;
     }//
-    
+
     public static void eraseProduct(Product product) {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
@@ -201,7 +209,7 @@ public class FileManager {
         }
 
     }
-    
+
     public static int validateUserManager(Manager manager) {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
@@ -223,7 +231,7 @@ public class FileManager {
                     return state;
 
                 } catch (Exception e) {
-                    
+
                     state = 0;
 
                 }
@@ -257,7 +265,7 @@ public class FileManager {
     }//
 
     public static Employee reenterEmployeeData(int state) {
-        Employee employee= new Employee();
+        Employee employee = new Employee();
         while (state == 0) {
             System.out.println("______________________________________");
             System.out.println("Re-enter the data ");
@@ -290,7 +298,7 @@ public class FileManager {
                     return state;
 
                 } catch (Exception e) {
-                    System.out.println("Data not found");
+
                     state = 0;
 
                 }
@@ -497,7 +505,7 @@ public class FileManager {
                 Sale sale = new Sale();
 
                 printAllProducts(productCollection);
-                System.out.println("name--->"+name);
+                System.out.println("name--->" + name);
 
                 while (addAnotherProduct == 1) {
 
@@ -532,7 +540,7 @@ public class FileManager {
         boolean validateId = false;
         boolean validateEmailEntered = false;
 
-        System.out.println("name__>"+name);
+        System.out.println("name__>" + name);
         System.out.print("Enter the name of the customer:\t");
         customer.setNameOfClient(scanner.next());
         //System.out.println("Numero de veces que ha venido");
@@ -958,9 +966,8 @@ public class FileManager {
 
                     }
 
-                }else if(answer==2){
-                    
-                
+                } else if (answer == 2) {
+
                 }
 
             } catch (MongoException me) {
@@ -971,7 +978,7 @@ public class FileManager {
 
     }//
 
-    public static void saveProduct() {
+    public static void saveProduct() {//a//
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         Product enteredProduct = new Product();

@@ -238,9 +238,7 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
 
         addToTable();
         
-        FmrActionsOfTheManager fmrActionsOfTheManager= new FmrActionsOfTheManager();
-        fmrActionsOfTheManager.setVisible(true);
-        this.setVisible(false);
+        
 
 
     }//GEN-LAST:event_btnFindActionPerformed
@@ -281,9 +279,7 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
 
         FileManager.updateProduct(nameInitial, enteredProduct);
         addToTable();
-        FmrActionsOfTheManager fmrActionsOfTheManager= new FmrActionsOfTheManager();
-        fmrActionsOfTheManager.setVisible(true);
-        this.setVisible(false);
+        
 
 
     }//GEN-LAST:event_btnUpdateActionPerformed

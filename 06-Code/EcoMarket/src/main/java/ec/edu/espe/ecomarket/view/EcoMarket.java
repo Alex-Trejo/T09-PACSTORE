@@ -32,7 +32,7 @@ public class EcoMarket {
         Scanner scanner = new Scanner(System.in);
 
         while (!exit) {
-            FileManager.newMenu();
+            //FileManager.newMenu();
 
             try {
                 System.out.println("Enter the option:");
@@ -43,7 +43,7 @@ public class EcoMarket {
 
                         int state;
                         int optionManager;
-                        manager = FileManager.userLogin();
+                        //manager = FileManager.userLogin();
                         state = FileManager.validateUserManager(manager);
 
                         state = FileManager.reenterManagerData(state);

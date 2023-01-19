@@ -4,6 +4,9 @@
  */
 package ec.edu.espe.ecomarket.view;
 
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Alex Trejo, PACSTORE, DCCO-ESPE
@@ -15,6 +18,9 @@ public class FrmPresentation extends javax.swing.JFrame {
      */
     public FrmPresentation() {
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -29,12 +35,18 @@ public class FrmPresentation extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        btnEnter = new javax.swing.JButton();
+        jpnlInput = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mniManagement = new javax.swing.JMenuItem();
+        mniEmployee = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EcoMarketSystem");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setToolTipText("EcoMarketSystem");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(java.awt.SystemColor.textHighlight);
@@ -48,33 +60,51 @@ public class FrmPresentation extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(204, Short.MAX_VALUE)
+                .addContainerGap(230, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(192, 192, 192))
+                .addGap(206, 206, 206))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29))
+                .addGap(23, 23, 23))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 90));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 40));
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 104, -1, -1));
+        jpnlInput.setBackground(new java.awt.Color(255, 255, 255));
+        jpnlInput.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jpnlInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 990, 360));
 
-        btnEnter.setBackground(new java.awt.Color(0, 153, 204));
-        btnEnter.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnEnter.setForeground(new java.awt.Color(0, 0, 0));
-        btnEnter.setText("INICIAR SESION ");
-        btnEnter.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar1.setToolTipText("EcoMarket");
+        jMenuBar1.setEnabled(false);
+
+        jMenu1.setText("Ingresar");
+
+        mniManagement.setText("Administrador");
+        mniManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnterActionPerformed(evt);
+                mniManagementActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, -1, -1));
+        jMenu1.add(mniManagement);
+
+        mniEmployee.setText("Empleado");
+        mniEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEmployeeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mniEmployee);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,9 +120,32 @@ public class FrmPresentation extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
+    private void mniManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniManagementActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEnterActionPerformed
+        FrmLoginManager frmManager= new FrmLoginManager();
+        frmManager.setVisible(true);
+        this.setVisible(false);
+        
+
+
+    }//GEN-LAST:event_mniManagementActionPerformed
+
+    private void mniEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmployeeActionPerformed
+        // TODO add your handling code here:
+        FrmLoginEmployee frmLoginEmployee= new FrmLoginEmployee();
+        frmLoginEmployee.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mniEmployeeActionPerformed
+
+    private void showPanel(FrmLoginManager p) {
+        p.setSize(900, 550);
+        p.setLocation(0, 0);
+
+        jpnlInput.removeAll();
+        jpnlInput.add(p, BorderLayout.CENTER);
+        jpnlInput.revalidate();
+        jpnlInput.repaint();
+    }
 
     /**
      * @param args the command line arguments
@@ -130,10 +183,14 @@ public class FrmPresentation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEnter;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jpnlInput;
+    private javax.swing.JMenuItem mniEmployee;
+    private javax.swing.JMenuItem mniManagement;
     // End of variables declaration//GEN-END:variables
 }

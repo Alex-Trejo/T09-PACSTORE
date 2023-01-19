@@ -4,6 +4,7 @@
  */
 package ec.edu.espe.ecomarket.view;
 
+import ec.edu.espe.ecomarket.controller.FileManager;
 import ec.edu.espe.ecomarket.model.Employee;
 import ec.edu.espe.ecomarket.model.Manager;
 import java.awt.Image;
@@ -21,7 +22,7 @@ public class FrmLoginEmployee extends javax.swing.JFrame {
     public FrmLoginEmployee() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -121,24 +122,34 @@ public class FrmLoginEmployee extends javax.swing.JFrame {
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // TODO add your handling code here:
-        
-        Manager manager= new Manager();
+        int stateEmployee = 0;
+
         Employee employee = new Employee();
-        
-        manager.setUserName(txtUserName.getText());
-        manager.setPassword(pssd.getText());
-        
-        
-        
+
         employee.setUserName(txtUserName.getText());
         employee.setPassword(pssd.getText());
+        stateEmployee=FileManager.validateUserEmployee(employee);
+        
+        while (stateEmployee == 0) {
+
+            stateEmployee = FileManager.validateUserEmployee(employee);
+            
+        }
+        stateEmployee = FileManager.reenterManagerData(stateEmployee);
+
+        if (stateEmployee!= 0) {
+            FmrActionsOfTheEmployee actionsEmployee = new FmrActionsOfTheEmployee();
+            actionsEmployee.setVisible(true);
+            this.setVisible(false);
+
+        }
         
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-        
+
     }//GEN-LAST:event_btnExitActionPerformed
 
     /*public Image getIconImage(){
