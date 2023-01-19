@@ -4,6 +4,8 @@
  */
 package ec.edu.espe.ecomarket.view;
 
+import ec.edu.espe.ecomarket.controller.SoundPlayer;
+
 /**
  *
  * @author Carlos Torres, T09_PACSTORE, DCCO-ESPE
@@ -75,6 +77,11 @@ public class FrmEmployeeOrManager extends javax.swing.JFrame {
         getContentPane().add(btnManager, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 170, 150));
 
         btnBack.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\flecha60x60.png")); // NOI18N
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBackMouseEntered(evt);
+            }
+        });
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -93,6 +100,7 @@ public class FrmEmployeeOrManager extends javax.swing.JFrame {
         FrmLoginEmployee login = new FrmLoginEmployee();
         login.setVisible(true);
         this.setVisible(false);
+        SoundPlayer.playSound("click.wav");
     }//GEN-LAST:event_btnEmployeeActionPerformed
 
     private void btnManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagerActionPerformed
@@ -100,6 +108,7 @@ public class FrmEmployeeOrManager extends javax.swing.JFrame {
         FrmLoginManager login = new FrmLoginManager();
         login.setVisible(true);
         this.setVisible(false);
+        SoundPlayer.playSound("click.wav");
     }//GEN-LAST:event_btnManagerActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -107,6 +116,7 @@ public class FrmEmployeeOrManager extends javax.swing.JFrame {
         FrmSubmission login = new FrmSubmission();
         login.setVisible(true);
         this.setVisible(false);
+        SoundPlayer.playSound("click.wav");
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnEmployeeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmployeeMouseEntered
@@ -114,6 +124,7 @@ public class FrmEmployeeOrManager extends javax.swing.JFrame {
         btnEmployee.setOpaque(true);
         btnEmployee.setContentAreaFilled(true);
         btnEmployee.setBorderPainted(true);
+        SoundPlayer.playSound("mouseEntered.wav");
     }//GEN-LAST:event_btnEmployeeMouseEntered
 
     private void btnEmployeeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmployeeMouseExited
@@ -127,6 +138,7 @@ public class FrmEmployeeOrManager extends javax.swing.JFrame {
         btnManager.setOpaque(true);
         btnManager.setContentAreaFilled(true);
         btnManager.setBorderPainted(true);
+        SoundPlayer.playSound("mouseEntered.wav");
     }//GEN-LAST:event_btnManagerMouseEntered
 
     private void btnManagerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManagerMouseExited
@@ -134,6 +146,11 @@ public class FrmEmployeeOrManager extends javax.swing.JFrame {
         transparentButton(false);
 
     }//GEN-LAST:event_btnManagerMouseExited
+
+    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
+        // TODO add your handling code here:
+        SoundPlayer.playSound("mouseEntered.wav");
+    }//GEN-LAST:event_btnBackMouseEntered
 
     public void transparentButton(boolean button) {
 

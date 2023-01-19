@@ -1,8 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package ec.edu.espe.ecomarket.view;
+
+import ec.edu.espe.ecomarket.controller.ButtonHover;
+import static ec.edu.espe.ecomarket.controller.ButtonHover.hoverGrow;
+import static ec.edu.espe.ecomarket.controller.ButtonIcon.adjustButtonIcon;
+import ec.edu.espe.ecomarket.controller.SoundPlayer;
 
 /**
  *
@@ -14,9 +16,14 @@ public class FrmSubmission extends javax.swing.JFrame {
      * Creates new form FrmSubmission
      */
     public FrmSubmission() {
-        initComponents();        
+        initComponents();
         this.setLocationRelativeTo(null);
+        adjustButtonIcon(BtnEnter);
+        adjustButtonIcon(btnExit);
+        hoverGrow(BtnEnter);
+        hoverGrow(btnExit);
         transparentButton(false);
+
     }
 
     /**
@@ -28,6 +35,8 @@ public class FrmSubmission extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         BtnEnter = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -35,10 +44,22 @@ public class FrmSubmission extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        BtnEnter.setBackground(new java.awt.Color(153, 51, 0));
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("EXIT");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, 60));
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("START");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, -1, 40));
+
+        BtnEnter.setBackground(new java.awt.Color(204, 204, 255));
         BtnEnter.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         BtnEnter.setForeground(new java.awt.Color(255, 255, 255));
-        BtnEnter.setText("INICIAR SESIÓN");
+        BtnEnter.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\boton230x48.png")); // NOI18N
+        BtnEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnEnter.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEnter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 BtnEnterMouseEntered(evt);
@@ -52,12 +73,13 @@ public class FrmSubmission extends javax.swing.JFrame {
                 BtnEnterActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 210, 30));
+        getContentPane().add(BtnEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 230, 50));
 
-        btnExit.setBackground(new java.awt.Color(153, 51, 0));
+        btnExit.setBackground(new java.awt.Color(204, 204, 255));
         btnExit.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
-        btnExit.setText("SALIR");
+        btnExit.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\boton230x48.png")); // NOI18N
+        btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnExitMouseEntered(evt);
@@ -71,7 +93,7 @@ public class FrmSubmission extends javax.swing.JFrame {
                 btnExitActionPerformed(evt);
             }
         });
-        getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 255, 200, 30));
+        getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 230, 50));
 
         jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\Presentation600x400.jpg")); // NOI18N
         jLabel3.setText("jLabel3");
@@ -83,47 +105,54 @@ public class FrmSubmission extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //TODO add your handling code here:
         System.exit(0);
-        
+
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void BtnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnterActionPerformed
         // TODO add your handling code here:
-        FrmEmployeeOrManager login= new FrmEmployeeOrManager();
+        FrmEmployeeOrManager login = new FrmEmployeeOrManager();
         login.setVisible(true);
         this.setVisible(false);
+        //playSound
+        SoundPlayer.playSound("click.wav");
     }//GEN-LAST:event_BtnEnterActionPerformed
 
     private void BtnEnterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEnterMouseEntered
         // TODO add your handling code here:
-        BtnEnter.setOpaque(true);
-        BtnEnter.setContentAreaFilled(true);
-        BtnEnter.setBorderPainted(true);
+        //playSound
+        SoundPlayer.playSound("mouseEntered.wav");
+        
+        //adjustButtonIcon(BtnEnter);
+
+
     }//GEN-LAST:event_BtnEnterMouseEntered
+
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         // TODO add your handling code here:
-        btnExit.setOpaque(true);
-        btnExit.setContentAreaFilled(true);
-        btnExit.setBorderPainted(true);
+        SoundPlayer.playSound("mouseEntered.wav");
+        //hoverGrow(btnExit);
+        //adjustButtonIcon(btnExit);
+
     }//GEN-LAST:event_btnExitMouseEntered
+
 
     private void BtnEnterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEnterMouseExited
         // TODO add your handling code here:
-                transparentButton(false);
+        //hoverGrow(BtnEnter);
+        //adjustButtonIcon(BtnEnter);
+
 
     }//GEN-LAST:event_BtnEnterMouseExited
 
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
         // TODO add your handling code here:
-                transparentButton(false);
+        
+        //adjustButtonIcon(btnExit);
 
     }//GEN-LAST:event_btnExitMouseExited
 
-    
-    
-    
-    
-     public void transparentButton(boolean button) {
+    public void transparentButton(boolean button) {
 
         BtnEnter.setOpaque(button);
         BtnEnter.setContentAreaFilled(button);
@@ -134,7 +163,7 @@ public class FrmSubmission extends javax.swing.JFrame {
         btnExit.setBorderPainted(button);
 
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -173,6 +202,8 @@ public class FrmSubmission extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEnter;
     private javax.swing.JButton btnExit;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

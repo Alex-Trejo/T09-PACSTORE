@@ -59,13 +59,12 @@ public class FrmLoginManager extends javax.swing.JFrame {
         btnEnter.setBackground(new java.awt.Color(102, 51, 0));
         btnEnter.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnEnter.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnter.setText("Iniciar Sesión ");
         btnEnter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnterActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, -1, -1));
+        getContentPane().add(btnEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 130, 40));
 
         txtUserName.setBackground(java.awt.SystemColor.windowBorder);
         txtUserName.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
