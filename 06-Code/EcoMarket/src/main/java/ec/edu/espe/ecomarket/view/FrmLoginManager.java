@@ -35,47 +35,26 @@ public class FrmLoginManager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtUserName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        pssd = new javax.swing.JPasswordField();
-        jPanel1 = new javax.swing.JPanel();
+        btnBack = new javax.swing.JButton();
         btnEnter = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
+        txtUserName = new javax.swing.JTextField();
+        pssd = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Eco Market Sistema de Administración ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Ingreso de Usuario");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, 20));
-
-        jLabel2.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Ingrese el nombre de usuario:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
-
-        txtUserName.setBackground(java.awt.SystemColor.windowBorder);
-        txtUserName.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        getContentPane().add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 270, -1));
-
-        jLabel4.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Ingrese su contraseña:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
-
-        pssd.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.hoverBackground"));
-        getContentPane().add(pssd, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 270, -1));
+        btnBack.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\flecha60x60.png")); // NOI18N
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(463, 330, 60, 60));
 
         btnEnter.setBackground(new java.awt.Color(102, 51, 0));
         btnEnter.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
@@ -86,40 +65,37 @@ public class FrmLoginManager extends javax.swing.JFrame {
                 btnEnterActionPerformed(evt);
             }
         });
+        getContentPane().add(btnEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, -1, -1));
 
-        btnExit.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        btnExit.setText("Salir");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
+        txtUserName.setBackground(java.awt.SystemColor.windowBorder);
+        txtUserName.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        getContentPane().add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 340, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(531, Short.MAX_VALUE)
-                .addComponent(btnEnter)
-                .addGap(24, 24, 24))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnExit))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(btnExit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
-                .addComponent(btnEnter)
-                .addGap(29, 29, 29))
-        );
+        pssd.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.hoverBackground"));
+        getContentPane().add(pssd, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 340, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 250));
+        jLabel4.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Password:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("User name:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\LoginManager600x400.jpg")); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        FrmEmployeeOrManager login= new FrmEmployeeOrManager();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // TODO add your handling code here:
@@ -130,7 +106,7 @@ public class FrmLoginManager extends javax.swing.JFrame {
 
         manager.setUserName(txtUserName.getText());
         manager.setPassword(new String(pssd.getPassword()));
-        
+
         System.out.println("pas-->"+manager.getPassword());
         System.out.println("nme->"+manager.getUserName());
         stateManager = FileManager.validateUserManager(manager);
@@ -138,35 +114,34 @@ public class FrmLoginManager extends javax.swing.JFrame {
         while (stateManager == 0) {
 
             stateManager = FileManager.validateUserManager(manager);
-            
+
         }
         stateManager = FileManager.reenterManagerData(stateManager);
 
         if (stateManager != 0) {
-            FmrActionsOfTheManager actionsManager = new FmrActionsOfTheManager();
+            FrmActionsOfTheManager actionsManager = new FrmActionsOfTheManager();
             actionsManager.setVisible(true);
             this.setVisible(false);
 
         }
         /*
-        
+
         employee.setName(txtUserName.getText());
         employee.setPassword(new String (pssd.getPassword()));
         stateEmployee= FileManager.validateUserEmployee(employee);
-        
-               
+
         while(stateEmployee==0){
             stateEmployee= FileManager.validateUserEmployee(employee);
             emptyFields();
-        } 
-        
+        }
+
         stateEmployee=FileManager.validateUserEmployee(employee);
-        
+
         if (stateEmployee!=0){
             FmrActionsOfTheEmployee actionsEmployee = new FmrActionsOfTheEmployee();
             actionsEmployee.setVisible(true);
             this.setVisible(false);
-            
+
         }
         /*employee.setUserName(txtUserName.getText());
         employee.setPassword(pssd.getText());
@@ -176,7 +151,6 @@ public class FrmLoginManager extends javax.swing.JFrame {
 
         employee = FileManager.reenterEmployeeData(stateEmployee);*/
 
-
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void emptyFields() {
@@ -184,12 +158,6 @@ public class FrmLoginManager extends javax.swing.JFrame {
         txtUserName.setText("");
         pssd.setText("");
     }
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-
-    }//GEN-LAST:event_btnExitActionPerformed
-
     /*public Image getIconImage(){
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("ec.edu.espe.ecomarket.images/Home75x75.png"));
         return retValue;
@@ -232,13 +200,11 @@ public class FrmLoginManager extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEnter;
-    private javax.swing.JButton btnExit;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField pssd;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables

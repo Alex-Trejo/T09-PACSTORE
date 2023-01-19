@@ -16,6 +16,7 @@ public class FrmSubmission extends javax.swing.JFrame {
     public FrmSubmission() {
         initComponents();        
         this.setLocationRelativeTo(null);
+        transparentButton(false);
     }
 
     /**
@@ -27,95 +28,54 @@ public class FrmSubmission extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         BtnEnter = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-
-        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
-
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("BIENVENIDO AL SISTEMA DE GESTION DE HUERTO ECO MAKERT");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel1)
-                .addContainerGap(180, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18))
-        );
-
-        jLabel2.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("INGRESO DE USUARIO");
-
+        BtnEnter.setBackground(new java.awt.Color(153, 51, 0));
+        BtnEnter.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        BtnEnter.setForeground(new java.awt.Color(255, 255, 255));
         BtnEnter.setText("INICIAR SESIÓN");
+        BtnEnter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnEnterMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnEnterMouseExited(evt);
+            }
+        });
         BtnEnter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnEnterActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 210, 30));
 
+        btnExit.setBackground(new java.awt.Color(153, 51, 0));
+        btnExit.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
         btnExit.setText("SALIR");
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnExitMouseExited(evt);
+            }
+        });
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
             }
         });
+        getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 255, 200, 30));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(210, 210, 210)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(BtnEnter))
-                            .addComponent(jLabel2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(236, 236, 236)
-                        .addComponent(btnExit)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BtnEnter)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExit)
-                .addGap(0, 78, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 230));
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\Presentation600x400.jpg")); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,11 +88,53 @@ public class FrmSubmission extends javax.swing.JFrame {
 
     private void BtnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnterActionPerformed
         // TODO add your handling code here:
-        FrmLoginManager login= new FrmLoginManager();
+        FrmEmployeeOrManager login= new FrmEmployeeOrManager();
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BtnEnterActionPerformed
 
+    private void BtnEnterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEnterMouseEntered
+        // TODO add your handling code here:
+        BtnEnter.setOpaque(true);
+        BtnEnter.setContentAreaFilled(true);
+        BtnEnter.setBorderPainted(true);
+    }//GEN-LAST:event_BtnEnterMouseEntered
+
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        // TODO add your handling code here:
+        btnExit.setOpaque(true);
+        btnExit.setContentAreaFilled(true);
+        btnExit.setBorderPainted(true);
+    }//GEN-LAST:event_btnExitMouseEntered
+
+    private void BtnEnterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEnterMouseExited
+        // TODO add your handling code here:
+                transparentButton(false);
+
+    }//GEN-LAST:event_BtnEnterMouseExited
+
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        // TODO add your handling code here:
+                transparentButton(false);
+
+    }//GEN-LAST:event_btnExitMouseExited
+
+    
+    
+    
+    
+     public void transparentButton(boolean button) {
+
+        BtnEnter.setOpaque(button);
+        BtnEnter.setContentAreaFilled(button);
+        BtnEnter.setBorderPainted(button);
+
+        btnExit.setOpaque(button);
+        btnExit.setContentAreaFilled(button);
+        btnExit.setBorderPainted(button);
+
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -171,9 +173,6 @@ public class FrmSubmission extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEnter;
     private javax.swing.JButton btnExit;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

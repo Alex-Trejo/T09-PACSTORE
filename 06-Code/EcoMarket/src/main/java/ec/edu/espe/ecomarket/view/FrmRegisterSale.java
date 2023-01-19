@@ -13,14 +13,14 @@ import org.bson.Document;
  *
  * @author Alex Trejo, PACSTORE, DCCO-ESPE
  */
-public class FrmRegisterProduct extends javax.swing.JFrame {
+public class FrmRegisterSale extends javax.swing.JFrame {
 
     DefaultTableModel model = new DefaultTableModel();
 
     /**
      * Creates new form FrmProduct
      */
-    public FrmRegisterProduct() {
+    public FrmRegisterSale() {
         initComponents();
         model.addColumn("Name");
         model.addColumn("Unit price");
@@ -289,21 +289,23 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmRegisterProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRegisterSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmRegisterProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRegisterSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmRegisterProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRegisterSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmRegisterProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRegisterSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmRegisterProduct().setVisible(true);
+                new FrmRegisterSale().setVisible(true);
             }
         });
     }
