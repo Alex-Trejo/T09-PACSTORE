@@ -28,7 +28,7 @@
     <Component class="javax.swing.JButton" name="btnBack">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ALEXANDER\Desktop\Alexander programa\EcoMarket\src\main\java\ec\edu\espe\ecomarket\images\flecha60x60.png"/>
+          <Image iconType="3" name="/ec/edu/espe/ecomarket/images/flecha60x60.png"/>
         </Property>
       </Properties>
       <Events>
@@ -36,14 +36,14 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="500" y="310" width="60" height="60"/>
+          <AbsoluteConstraints x="590" y="360" width="60" height="60"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ALEXANDER\Desktop\Alexander programa\EcoMarket\src\main\java\ec\edu\espe\ecomarket\images\About700.jpg"/>
+          <Image iconType="3" name="/ec/edu/espe/ecomarket/images/About700.jpg"/>
         </Property>
       </Properties>
       <Constraints>
