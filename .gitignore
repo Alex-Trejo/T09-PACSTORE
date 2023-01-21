@@ -17,10 +17,16 @@
 *.ear
 *.zip
 *.tar.gz
-*.rar
+.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+hs_err_pid
 /06-Code/HuertoEcoMarket/build/
 /06-Code/HuertoEcoMarket/dist/
 /06-Code/HuertoEcoMarket_1/nbproject/private/
+/06-Code/new/EcoMarket/nbproject/private/
+/06-Code/new/EcoMarket/dist/
+/06-Code/new/EcoMarket/build/
+/06-Code/EcoMarket/build/
+/06-Code/EcoMarket/dist/
+/06-Code/EcoMarket/nbproject/private/
