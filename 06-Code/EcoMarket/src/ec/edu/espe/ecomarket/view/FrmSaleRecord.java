@@ -4,6 +4,18 @@
  */
 package ec.edu.espe.ecomarket.view;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import ec.edu.espe.ecomarket.controller.MongoConection;
+import java.util.ArrayList;
+import java.util.List;
+import org.bson.Document;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
+
 /**
  *
  * @author Carlos Torres, T09_PACSTORE, DCCO-ESPE
@@ -16,6 +28,41 @@ public class FrmSaleRecord extends javax.swing.JFrame {
     public FrmSaleRecord() {
         initComponents();
     }
+    
+    
+    public void loadSale() {
+
+        MongoConection connection;
+        connection = new MongoConection();
+        connection.connectDatabase();
+
+        CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+
+        MongoDatabase db = connection.connectDatabase().withCodecRegistry(codecRegistry);
+        MongoCollection<Document> salesRecordCollection = db.getCollection("SalesRecord", Document.class); 
+        List<Document> saleRecord = salesRecordCollection.find(new Document(), Document.class).into(new ArrayList<>());
+
+        Object[][] objects = new Object[saleRecord.size()][4];
+
+        for (int i = 0; i < saleRecord.size(); i++) {
+            objects[i][0] = saleRecord.get(i).get("name of Product");
+            objects[i][1] = saleRecord.get(i).get("amount sold");
+            objects[i][2] = saleRecord.get(i).get("unit price");
+            objects[i][3] = saleRecord.get(i).get("total Money");
+           
+       
+            tblSaleRecord.setModel(new javax.swing.table.DefaultTableModel(
+                    objects,
+                    new String[]{
+                        "name of Product",
+                        "amount sold",
+                        "unit price",
+                        "total Money"
+                    }
+            ));
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,14 +74,16 @@ public class FrmSaleRecord extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblInventory = new javax.swing.JTable();
+        tblSaleRecord = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblInventory.setModel(new javax.swing.table.DefaultTableModel(
+        tblSaleRecord.setForeground(new java.awt.Color(0, 0, 0));
+        tblSaleRecord.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -51,19 +100,28 @@ public class FrmSaleRecord extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Amount sold ", "Unit price", " Total Money"
             }
         ));
-        jScrollPane1.setViewportView(tblInventory);
+        jScrollPane1.setViewportView(tblSaleRecord);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 540, 230));
 
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/flecha60x60.png"))); // NOI18N
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
         getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 340, 70, 60));
+
+        jButton1.setText("Show");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/saleRecords.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
@@ -77,6 +135,11 @@ public class FrmSaleRecord extends javax.swing.JFrame {
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        loadSale();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,8 +178,9 @@ public class FrmSaleRecord extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblInventory;
+    private javax.swing.JTable tblSaleRecord;
     // End of variables declaration//GEN-END:variables
 }

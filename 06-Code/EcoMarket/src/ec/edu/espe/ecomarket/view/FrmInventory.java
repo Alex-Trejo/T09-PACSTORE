@@ -4,9 +4,21 @@
  */
 package ec.edu.espe.ecomarket.view;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import ec.edu.espe.ecomarket.controller.MongoConection;
+import static ec.edu.espe.ecomarket.controller.MongoConection.database;
 import ec.edu.espe.ecomarket.model.Inventory;
 import ec.edu.espe.ecomarket.model.Product;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.bson.Document;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  *
@@ -14,29 +26,41 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmInventory extends javax.swing.JFrame {
 
-    DefaultTableModel model = new DefaultTableModel();
-    /**
-     * Creates new form FrmInventory
-     */
     public FrmInventory() {
         initComponents();
-        model.addColumn("Name");
-        model.addColumn("Amount");
-        this.tblInventory.setModel(model);
     }
 
-    
-    private void addToTable() {
-        Inventory inventory = new Inventory();
+    public void loadStock() {
 
-        Object[] dataProduct = new Object[2];
-        dataProduct[0] = inventory.getName();
-        dataProduct[1] = inventory.getAmount();
-        model.addRow(dataProduct);
+        MongoConection connection;
+        connection = new MongoConection();
+        connection.connectDatabase();
 
+        CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+
+        MongoDatabase db = connection.connectDatabase().withCodecRegistry(codecRegistry);
+        MongoCollection<Document> productCollection = db.getCollection("Product", Document.class); 
+        List<Document> products = productCollection.find(new Document(), Document.class).into(new ArrayList<>());
+
+        Object[][] objects = new Object[products.size()][3];
+
+        for (int i = 0; i < products.size(); i++) {
+            objects[i][0] = products.get(i).get("name of Product");
+            objects[i][1] = products.get(i).get("amount");
+            objects[i][2] = products.get(i).get("unit price");
+
+            tblInventory.setModel(new javax.swing.table.DefaultTableModel(
+                    objects,
+                    new String[]{
+                        "name of Product",
+                        "amount",
+                        "unit price"
+                    }
+            ));
+        }
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,34 +73,39 @@ public class FrmInventory extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInventory = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
+        btnShowStock = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblInventory.setForeground(new java.awt.Color(0, 0, 0));
         tblInventory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Name", "Amount"
+                "Name", "Amount", "Unit Price"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Byte.class, java.lang.String.class, java.lang.Byte.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblInventory.setShowGrid(false);
         jScrollPane1.setViewportView(tblInventory);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 490, 230));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 780, 300));
 
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/flecha60x60.png"))); // NOI18N
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -84,22 +113,34 @@ public class FrmInventory extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 340, 70, 60));
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 70, 60));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/inventory.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
+        btnShowStock.setText("Show stock");
+        btnShowStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowStockActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnShowStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 410, -1, -1));
+
+        jLabel1.setText("Inventory");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-    
+
+
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        FrmActionsOfTheManager login= new FrmActionsOfTheManager();
+        FrmActionsOfTheManager login = new FrmActionsOfTheManager();
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnShowStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowStockActionPerformed
+        // TODO add your handling code here:
+        loadStock();
+    }//GEN-LAST:event_btnShowStockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,6 +179,7 @@ public class FrmInventory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnShowStock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblInventory;

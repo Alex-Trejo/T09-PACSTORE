@@ -2,6 +2,7 @@
 package ec.edu.espe.ecomarket.view;
 
 import ec.edu.espe.ecomarket.controller.FileManager;
+import ec.edu.espe.ecomarket.model.Customer;
 import ec.edu.espe.ecomarket.model.Product;
 
 import java.awt.HeadlessException;
@@ -20,27 +21,9 @@ public class FrmRegisterSale extends javax.swing.JFrame {
     /**
      * Creates new form FrmProduct
      */
-    public FrmRegisterSale() {
-        initComponents();
-        model.addColumn("Name");
-        model.addColumn("Unit price");
-        model.addColumn("Amount");
-        this.jTable1.setModel(model);
-    }
+   
 
-    private void addToTable() {
-        Product product = new Product();
-        product.setName(txtName.getText());
-        product.setUnitPrice(Double.parseDouble(txtUnitPrice.getText()));
-        product.setAmount(Integer.valueOf(txtQuantity.getText()));
-
-        Object[] dataProduct = new Object[4];
-        dataProduct[0] = product.getName();
-        dataProduct[1] = product.getUnitPrice();
-        dataProduct[2] = product.getAmount();
-        model.addRow(dataProduct);
-
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,60 +35,39 @@ public class FrmRegisterSale extends javax.swing.JFrame {
     private void initComponents() {
 
         btnBack = new javax.swing.JButton();
-        txtName = new javax.swing.JTextField();
-        txtUnitPrice = new javax.swing.JTextField();
-        btnFind = new javax.swing.JButton();
-        txtQuantity = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        txtNameCustomer = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtNameProduct = new javax.swing.JTextField();
+        Amount = new javax.swing.JLabel();
+        txtAmount = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/flecha60x60.png"))); // NOI18N
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 60, 60));
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 60, 60));
 
-        txtName.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        getContentPane().add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 239, -1));
+        txtNameCustomer.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        getContentPane().add(txtNameCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 250, -1));
 
-        txtUnitPrice.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(txtUnitPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 239, -1));
+        txtID.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 250, -1));
 
-        btnFind.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnFind.setText("Find");
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 130, 50));
-
-        txtQuantity.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(txtQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 239, -1));
-
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 520, 110));
+        txtEmail.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 250, -1));
 
         btnSave.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnSave.setText("Save");
@@ -114,61 +76,48 @@ public class FrmRegisterSale extends javax.swing.JFrame {
                 btnSaveActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 110, 40));
-
-        btnUpdate.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 349, 110, 40));
-
-        btnDelete.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 349, 110, 40));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/RegisterProduct.jpg"))); // NOI18N
+        getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 110, 40));
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        jLabel1.setText("Register Sale");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, -1, -1));
+
+        jLabel2.setText("Name of Custumer:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        jLabel3.setText("ID:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
+        jLabel6.setText("Email:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        jLabel4.setText("Name of product:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+
+        txtNameProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameProductActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtNameProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 250, -1));
+
+        Amount.setText("Amount");
+        getContentPane().add(Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        getContentPane().add(txtAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 250, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        validateName();
-        Product enteredProduct = new Product();
-        Product product = new Product();
-        String name = txtName.getText();
-        enteredProduct.setName(name);
-
-        product = FileManager.findproduct(enteredProduct);
-
-        txtQuantity.setText(String.valueOf(product.getAmount()));
-
-        txtUnitPrice.setText(String.valueOf(product.getUnitPrice()));
-
-        addToTable();
-        
-        
-
-
-    }//GEN-LAST:event_btnFindActionPerformed
-
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        validateDataProduct();
-        Product enteredProduct = new Product();
+        
+        Customer customer = new Customer();
 
-        enteredProduct.setName(txtName.getText());
-        enteredProduct.setUnitPrice(Double.parseDouble(txtUnitPrice.getText()));
-        enteredProduct.setAmount(Integer.valueOf(txtQuantity.getText()));
+        customer.setNameOfClient(txtNameCustomer.getText());
+        customer.setIdCustomer(txtID.getText());
+        customer.setEmail(txtEmail.getText());
 
-        FileManager.saveProduct(enteredProduct);
+        //FileManager.(customer);
 
         emptyFields();
         
@@ -181,47 +130,6 @@ public class FrmRegisterSale extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-
-        String nameInitial = name();
-        validateName();
-        Product enteredProduct = new Product();
-        String name = txtName.getText();
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
-        int amount = Integer.valueOf(txtQuantity.getText());
-        enteredProduct.setName(name);
-        enteredProduct.setAmount(amount);
-        enteredProduct.setUnitPrice(unitPrice);
-
-        FileManager.updateProduct(nameInitial, enteredProduct);
-        addToTable();
-        
-
-
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-       
-        validateName();
-        
-        
-        Product enteredProduct = new Product();
-        String name = txtName.getText();
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
-        int amount = Integer.valueOf(txtQuantity.getText());
-        enteredProduct.setName(name);
-        enteredProduct.setAmount(amount);
-        enteredProduct.setUnitPrice(unitPrice);
-        
-        FileManager.eraseProduct(enteredProduct);
-        FrmActionsOfTheManager fmrActionsOfTheManager= new FrmActionsOfTheManager();
-        fmrActionsOfTheManager.setVisible(true);
-        this.setVisible(false);
-        
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         FrmActionsOfTheManager login= new FrmActionsOfTheManager();
@@ -229,36 +137,40 @@ public class FrmRegisterSale extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void txtNameProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameProductActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameProductActionPerformed
+
     private String name() {
-        String name = txtName.getText();
+        String name = txtNameCustomer.getText();
         return name;
     }
 
     private void emptyFields() {
 
-        txtName.setText("");
-        txtUnitPrice.setText("");
-        txtQuantity.setText("");
+        txtNameCustomer.setText("");
+        txtID.setText("");
+        txtEmail.setText("");
 
     }
 
     public void validateDataProduct() throws HeadlessException {
         // TODO add your handling code here:
 
-        if (txtName.getText().isEmpty() == true) {
+        if (txtNameCustomer.getText().isEmpty() == true) {
             JOptionPane.showMessageDialog(null, "You must enter the product name");
         }
 
-        if (txtUnitPrice.getText().isEmpty() == true) {
+        if (txtID.getText().isEmpty() == true) {
             JOptionPane.showMessageDialog(null, "You must enter the unit product");
         }
 
-        if (txtQuantity.getText().isEmpty() == true) {
+        if (txtEmail.getText().isEmpty() == true) {
             JOptionPane.showMessageDialog(null, "You must enter the Amount product");
         }
 
         try {
-            if ((Integer.valueOf(txtQuantity.getText())) % 2 != 0) {
+            if ((Integer.valueOf(txtEmail.getText())) % 2 != 0) {
                 JOptionPane.showMessageDialog(null, "Enter a valid quantity");
             }
         } catch (NumberFormatException e) {
@@ -270,7 +182,7 @@ public class FrmRegisterSale extends javax.swing.JFrame {
     public void validateName() throws HeadlessException {
         // TODO add your handling code here:
 
-        if (txtName.getText().isEmpty() == true) {
+        if (txtNameCustomer.getText().isEmpty() == true) {
             JOptionPane.showMessageDialog(null, "You must enter the product name");
         }
 
@@ -315,16 +227,19 @@ public class FrmRegisterSale extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Amount;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtQuantity;
-    private javax.swing.JTextField txtUnitPrice;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField txtAmount;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtNameCustomer;
+    private javax.swing.JTextField txtNameProduct;
     // End of variables declaration//GEN-END:variables
 }
