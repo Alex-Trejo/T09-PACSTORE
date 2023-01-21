@@ -3,14 +3,15 @@ package ec.edu.espe.ecomarket.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
-import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+
 import ec.edu.espe.ecomarket.model.Customer;
 import ec.edu.espe.ecomarket.model.EmailCustomer;
 import ec.edu.espe.ecomarket.model.Employee;
@@ -49,7 +50,7 @@ public class FileManager {
         String data;
         Product product = new Product();
         Gson gson = new Gson();
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( MongoClient mongoClient = (MongoClient) MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
                 MongoCollection<Document> productCollection = database.getCollection("Product");
@@ -99,15 +100,13 @@ public class FileManager {
             }
         }
     }*/
-    
-    
-    public static void saveProduct( Product enteredProducts) {//a//
+    public static void saveProduct(Product enteredProducts) {//a//
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         Product enteredProduct = new Product();
 
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
 
             try {
@@ -116,9 +115,6 @@ public class FileManager {
                 System.out.println("_________________________________________________________________________________________");
                 MongoCollection<Document> productCollection = database.getCollection("Product");
                 MongoCollection<Document> inventoryCollection = database.getCollection("Inventory");
-
-                
-
 
                 Bson filter = Filters.eq("name of Product", enteredProducts.getName());
 
@@ -146,14 +142,12 @@ public class FileManager {
         }
 
     }//
-    
-    
 
     public static void updateProduct(String nameInitial, Product enteredProduct) {///****////
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
 
@@ -179,7 +173,7 @@ public class FileManager {
     public static int reenterManagerData(int state) {
         Manager manager;
         while (state == 0) {
-            
+
             state = 1;
         }
         return state;
@@ -189,7 +183,7 @@ public class FileManager {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
 
@@ -215,7 +209,7 @@ public class FileManager {
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         String userName;
         int state = 0;
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
 
@@ -282,7 +276,7 @@ public class FileManager {
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         String userName;
         int state = 0;
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
 
@@ -339,7 +333,7 @@ public class FileManager {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
                 System.out.println("The connection to the EcoMarketS database was successful.");
@@ -386,7 +380,7 @@ public class FileManager {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
                 System.out.println("The connection to the EcoMarketS database was successful.");
@@ -411,7 +405,7 @@ public class FileManager {
 
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
 
@@ -460,7 +454,7 @@ public class FileManager {
         int addAnotherProduct = 1;
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
 
@@ -492,7 +486,7 @@ public class FileManager {
         int addAnotherProduct = 1;
         String uri = "mongodb+srv://alextrejo:1402oop@cluster0.ydafxco.mongodb.net/?retryWrites=true&w=majority";
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
 
@@ -797,6 +791,8 @@ public class FileManager {
     private static Boolean printAllProducts(MongoCollection<Document> productCollection) {
         Boolean exit;
         System.out.println("________________________Registered products ________________________________________________");
+        
+        
         productCollection.find().forEach(doc -> System.out.println(doc.toJson()));
         exit = true;
         System.out.println("=======================================================================");
@@ -936,7 +932,7 @@ public class FileManager {
         int answer = 0;
 
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
 
             try {
@@ -984,7 +980,7 @@ public class FileManager {
         Product enteredProduct = new Product();
 
         System.out.println("___________________________________________________________________________________________");
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
 
             try {

@@ -98,57 +98,31 @@ public class FrmLoginEmployee extends javax.swing.JFrame {
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // TODO add your handling code here:
-        int stateManager = 0;
+        
         int stateEmployee = 0;
-        Manager manager = new Manager();
+       
         Employee employee = new Employee();
 
-        manager.setUserName(txtUserName.getText());
-        manager.setPassword(new String(pssd.getPassword()));
+       employee.setUserName(txtUserName.getText());
+       employee.setPassword(new String(pssd.getPassword()));
 
-        System.out.println("pas-->"+manager.getPassword());
-        System.out.println("nme->"+manager.getUserName());
-        stateManager = FileManager.validateUserManager(manager);
+        
+        stateEmployee = FileManager.validateUserEmployee(employee);
 
-        while (stateManager == 0) {
+        while (stateEmployee == 0) {
 
-            stateManager = FileManager.validateUserManager(manager);
+           stateEmployee = FileManager.validateUserEmployee(employee);
 
         }
-        stateManager = FileManager.reenterManagerData(stateManager);
+        stateEmployee = FileManager.reenterManagerData(stateEmployee);
 
-        if (stateManager != 0) {
+        if (stateEmployee != 0) {
             FrmActionsOfTheManager actionsManager = new FrmActionsOfTheManager();
             actionsManager.setVisible(true);
             this.setVisible(false);
 
         }
-        /*
-
-        employee.setName(txtUserName.getText());
-        employee.setPassword(new String (pssd.getPassword()));
-        stateEmployee= FileManager.validateUserEmployee(employee);
-
-        while(stateEmployee==0){
-            stateEmployee= FileManager.validateUserEmployee(employee);
-            emptyFields();
-        }
-
-        stateEmployee=FileManager.validateUserEmployee(employee);
-
-        if (stateEmployee!=0){
-            FmrActionsOfTheEmployee actionsEmployee = new FmrActionsOfTheEmployee();
-            actionsEmployee.setVisible(true);
-            this.setVisible(false);
-
-        }
-        /*employee.setUserName(txtUserName.getText());
-        employee.setPassword(pssd.getText());
-
-        employee = FileManager.userLoginEmployee();
-        stateEmployee = FileManager.validateUserEmployee(employee);
-
-        employee = FileManager.reenterEmployeeData(stateEmployee);*/
+        
     }//GEN-LAST:event_btnEnterActionPerformed
 
     /*public Image getIconImage(){

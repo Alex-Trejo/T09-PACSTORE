@@ -57,7 +57,7 @@ public class FrmSubmission extends javax.swing.JFrame {
         BtnEnter.setBackground(new java.awt.Color(204, 204, 255));
         BtnEnter.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         BtnEnter.setForeground(new java.awt.Color(255, 255, 255));
-        BtnEnter.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\boton230x48.png")); // NOI18N
+        BtnEnter.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Desktop\\ESPE\\grupal\\T09-PACSTORE\\06-Code\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\boton230x48.png")); // NOI18N
         BtnEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BtnEnter.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEnter.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,7 +78,7 @@ public class FrmSubmission extends javax.swing.JFrame {
         btnExit.setBackground(new java.awt.Color(204, 204, 255));
         btnExit.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
-        btnExit.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\boton230x48.png")); // NOI18N
+        btnExit.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Desktop\\ESPE\\grupal\\T09-PACSTORE\\06-Code\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\boton230x48.png")); // NOI18N
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -95,7 +95,7 @@ public class FrmSubmission extends javax.swing.JFrame {
         });
         getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 230, 50));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\Presentation600x400.jpg")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Desktop\\ESPE\\grupal\\T09-PACSTORE\\06-Code\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\Presentation600x400.jpg")); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
 
