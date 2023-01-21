@@ -1,4 +1,3 @@
-
 package ec.edu.espe.ecomarket.view;
 
 import ec.edu.espe.ecomarket.controller.FileManager;
@@ -28,8 +27,8 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
         this.jTable1.setModel(model);
     }
 
-    private void addToTable() {
-        Product product = new Product();
+    private void addToTable(Product product) {
+        //Product product = new Product();
         product.setName(txtName.getText());
         product.setUnitPrice(Double.parseDouble(txtUnitPrice.getText()));
         product.setAmount(Integer.valueOf(txtQuantity.getText()));
@@ -66,7 +65,6 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnBack.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\flecha60x60.png")); // NOI18N
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -130,7 +128,7 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
         });
         getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 349, 110, 40));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\RegisterProduct.jpg")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/RegisterProduct.jpg"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -143,15 +141,15 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
         String name = txtName.getText();
         enteredProduct.setName(name);
 
+        System.out.println("name->" + enteredProduct.getName());
+
         product = FileManager.findproduct(enteredProduct);
 
         txtQuantity.setText(String.valueOf(product.getAmount()));
 
         txtUnitPrice.setText(String.valueOf(product.getUnitPrice()));
 
-        addToTable();
-        
-        
+        addToTable(enteredProduct);
 
 
     }//GEN-LAST:event_btnFindActionPerformed
@@ -167,12 +165,10 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
         FileManager.saveProduct(enteredProduct);
 
         emptyFields();
-        
-        FrmActionsOfTheManager fmrActionsOfTheManager= new FrmActionsOfTheManager();
+
+        FrmActionsOfTheManager fmrActionsOfTheManager = new FrmActionsOfTheManager();
         fmrActionsOfTheManager.setVisible(true);
         this.setVisible(false);
-        
-        
 
 
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -191,18 +187,22 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
         enteredProduct.setUnitPrice(unitPrice);
 
         FileManager.updateProduct(nameInitial, enteredProduct);
-        addToTable();
-        
+
+        emptyFields();
+
+        //addToTable();
+        FrmActionsOfTheManager fmrActionsOfTheManager = new FrmActionsOfTheManager();
+        fmrActionsOfTheManager.setVisible(true);
+        this.setVisible(false);
 
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-       
+
         validateName();
-        
-        
+
         Product enteredProduct = new Product();
         String name = txtName.getText();
         double unitPrice = Double.parseDouble(txtUnitPrice.getText());
@@ -210,17 +210,20 @@ public class FrmRegisterProduct extends javax.swing.JFrame {
         enteredProduct.setName(name);
         enteredProduct.setAmount(amount);
         enteredProduct.setUnitPrice(unitPrice);
-        
+
         FileManager.eraseProduct(enteredProduct);
-        FrmActionsOfTheManager fmrActionsOfTheManager= new FrmActionsOfTheManager();
+
+        emptyFields();
+
+        FrmActionsOfTheManager fmrActionsOfTheManager = new FrmActionsOfTheManager();
         fmrActionsOfTheManager.setVisible(true);
         this.setVisible(false);
-        
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        FrmActionsOfTheManager login= new FrmActionsOfTheManager();
+        FrmActionsOfTheManager login = new FrmActionsOfTheManager();
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed

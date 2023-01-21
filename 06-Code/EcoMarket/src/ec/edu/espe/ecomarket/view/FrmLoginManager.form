@@ -30,11 +30,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnBack">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ALEXANDER\Desktop\Alexander programa\EcoMarket\src\main\java\ec\edu\espe\ecomarket\images\flecha60x60.png"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
       </Events>
@@ -127,7 +122,7 @@
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ALEXANDER\Desktop\Alexander programa\EcoMarket\src\main\java\ec\edu\espe\ecomarket\images\LoginManager600x400.jpg"/>
+          <Image iconType="3" name="/ec/edu/espe/ecomarket/images/LoginManager600x400.jpg"/>
         </Property>
       </Properties>
       <Constraints>
