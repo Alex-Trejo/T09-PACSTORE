@@ -28,7 +28,7 @@
     <Component class="javax.swing.JButton" name="btnBack">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ALEXANDER\Desktop\Alexander programa\EcoMarket\src\main\java\ec\edu\espe\ecomarket\images\flecha60x60.png"/>
+          <Image iconType="3" name="/ec/edu/espe/ecomarket/images/flecha60x60.png"/>
         </Property>
       </Properties>
       <Events>
@@ -109,7 +109,7 @@
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ALEXANDER\Desktop\Alexander programa\EcoMarket\src\main\java\ec\edu\espe\ecomarket\images\Actions for the manager.jpg"/>
+          <Image iconType="3" name="/ec/edu/espe/ecomarket/images/Actions for the manager.jpg"/>
         </Property>
       </Properties>
       <Constraints>
@@ -127,7 +127,7 @@
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\ALEXANDER\Desktop\Alexander programa\EcoMarket\src\main\java\ec\edu\espe\ecomarket\images\Actions for the manager.jpg"/>
+          <Image iconType="3" name="/ec/edu/espe/ecomarket/images/Actions for the manager.jpg"/>
         </Property>
       </Properties>
       <Constraints>

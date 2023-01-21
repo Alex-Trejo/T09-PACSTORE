@@ -66,7 +66,6 @@ public class FrmRegisterSale extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnBack.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\flecha60x60.png")); // NOI18N
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -76,6 +75,8 @@ public class FrmRegisterSale extends javax.swing.JFrame {
 
         txtName.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         getContentPane().add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 239, -1));
+
+        txtUnitPrice.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(txtUnitPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 239, -1));
 
         btnFind.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
@@ -86,8 +87,11 @@ public class FrmRegisterSale extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 130, 50));
+
+        txtQuantity.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(txtQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 239, -1));
 
+        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -130,7 +134,7 @@ public class FrmRegisterSale extends javax.swing.JFrame {
         });
         getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 349, 110, 40));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEXANDER\\Desktop\\Alexander programa\\EcoMarket\\src\\main\\java\\ec\\edu\\espe\\ecomarket\\images\\RegisterProduct.jpg")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/RegisterProduct.jpg"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

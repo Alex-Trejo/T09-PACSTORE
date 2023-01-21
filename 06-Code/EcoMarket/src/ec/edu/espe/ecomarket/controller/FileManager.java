@@ -50,7 +50,36 @@ public class FileManager {
         String data;
         Product product = new Product();
         Gson gson = new Gson();
-        try ( MongoClient mongoClient = (MongoClient) MongoClients.create(uri)) {
+
+        try ( com.mongodb.client.MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
+            try {
+                MongoCollection<Document> productCollection = database.getCollection("Product");
+                Bson filter = Filters.eq("name of Product", enteredProduct.getName());
+                try {
+                    
+                    Document doc = productCollection.find(Filters.and(filter)).first();
+
+                    String name = (String) doc.get("name of Product");
+                    double unitPrice = doc.getDouble("unit price");
+                    int amount = (int) doc.get("amount");
+
+                    product.setName(name);
+                    product.setUnitPrice(unitPrice);
+                    product.setAmount(amount);
+                    
+
+                } catch (Exception e) {
+                    System.out.println("Data not found");
+                }
+
+            } catch (MongoException me) {
+                System.out.println("An error occurred while attempting to connect: " + me);
+            }
+
+        }
+
+        /*try ( MongoClient mongoClient = (MongoClient) MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("T09-PACSTORE");
             try {
                 MongoCollection<Document> productCollection = database.getCollection("Product");
@@ -74,7 +103,7 @@ public class FileManager {
             } catch (MongoException me) {
                 System.out.println("An error occurred while attempting to connect: " + me);
             }
-        }
+        }*/
 
         return product;
 
@@ -791,8 +820,7 @@ public class FileManager {
     private static Boolean printAllProducts(MongoCollection<Document> productCollection) {
         Boolean exit;
         System.out.println("________________________Registered products ________________________________________________");
-        
-        
+
         productCollection.find().forEach(doc -> System.out.println(doc.toJson()));
         exit = true;
         System.out.println("=======================================================================");
