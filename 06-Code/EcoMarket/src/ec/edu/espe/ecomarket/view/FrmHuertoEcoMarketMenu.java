@@ -427,8 +427,8 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itemDeleteSuppliersActionPerformed
 
     private void itemAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddServiceActionPerformed
-        FrmCargo frmService;
-        frmService = new FrmCargo();
+        FrmPosition frmService;
+        frmService = new FrmPosition();
         frmService.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_itemAddServiceActionPerformed
@@ -441,8 +441,8 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itemUpdateServiceActionPerformed
 
     private void itemDeleteServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDeleteServiceActionPerformed
-       FrmDeleteCargo frmService;
-        frmService = new FrmDeleteCargo();
+       FrmDeletePosition frmService;
+        frmService = new FrmDeletePosition();
         frmService.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_itemDeleteServiceActionPerformed

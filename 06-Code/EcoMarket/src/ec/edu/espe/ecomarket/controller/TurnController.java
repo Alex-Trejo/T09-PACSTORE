@@ -5,7 +5,7 @@
 package ec.edu.espe.ecomarket.controller;
 
 import org.bson.Document;
-import ec.edu.espe.stylesirelia.model.Turn;
+import ec.edu.espe.ecomarket.model.Turn;
 /**
  *
  * @author David Toapanta, Pacstore, DCCO-ESPE

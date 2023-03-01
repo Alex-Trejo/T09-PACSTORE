@@ -20,7 +20,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  *
- * @author widin
+ * @author Carlos Torres, T09_PACSTORE, DCCO-ESPE
  */
 public class FrmUpdateSupplier extends javax.swing.JFrame {
 
