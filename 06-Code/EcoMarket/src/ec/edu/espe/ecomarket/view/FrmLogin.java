@@ -41,7 +41,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     @Override
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/menu_bg.png"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/HuertoEcoMarketMain.png"));
         return retValue;
     }
 
@@ -190,7 +190,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         iconTeam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HuertoEcoMarketIcon.jpeg"))); // NOI18N
         iconTeam.setText("jLabel2");
-        jPanel1.add(iconTeam, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, -1, 510));
+        jPanel1.add(iconTeam, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 260, 510));
 
         sptPsd.setBackground(new java.awt.Color(0, 0, 0));
         sptPsd.setForeground(new java.awt.Color(0, 0, 0));

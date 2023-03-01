@@ -18,7 +18,7 @@ public class EmployeeController extends BasicController<Employee> {
     }
 
     public EmployeeController() {
-        super(new Employee(), "stylists");
+        super(new Employee(), "employee");
     }
 
     public Document buildDocument(Employee stylist) {
