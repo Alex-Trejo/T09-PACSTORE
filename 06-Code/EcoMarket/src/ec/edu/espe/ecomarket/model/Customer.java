@@ -1,68 +1,125 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package ec.edu.espe.ecomarket.model;
 
 /**
  *
- * @author Alex Trejo, PACSTORE, DCCO-ESPE
+ * @author David Toapanta, Pacstore, DCCO-ESPE
  */
 public class Customer {
 
-    private String nameOfClient;
-    private int numberOfTimesHeHasCome;
-    private String IdCustomer;
-    private String email;
+    private String identificationCard;
+    private String name;
+    private int number;
+    private boolean pendingPayment;
+    private String appointment;
+    private String address;
 
-    public Customer(String nameOfClient, int numberOfTimesHeHasCome, String IdCustomer, String email) {
-        this.nameOfClient = nameOfClient;
-        this.numberOfTimesHeHasCome = numberOfTimesHeHasCome;
-        this.IdCustomer = IdCustomer;
-        this.email = email;
-    }
-    
-     public Customer() {
-        nameOfClient = "";
-        numberOfTimesHeHasCome = 0;
-        IdCustomer = "";
-        email = "";
+    public Customer() {
     }
 
-    
-    
-    
-    
-    public String getNameOfClient() {
-        return nameOfClient;
+    public Customer(String identificationCard, String name, int number, boolean pendingPayment, String appointment, String address) {
+        this.identificationCard = identificationCard;
+        this.name = name;
+        this.number = number;
+        this.pendingPayment = pendingPayment;
+        this.appointment = appointment;
+        this.address = address;
     }
 
-    public void setNameOfClient(String nameOfClient) {
-        this.nameOfClient = nameOfClient;
+    @Override
+    public String toString() {
+        return "identificationCard=" + identificationCard + ", name=" + name + ", number=" + number + ", pendingPayment=" + pendingPayment + ", appointment=" + appointment + ", address=" + address;
     }
 
-    public int getNumberOfTimesHeHasCome() {
-        return numberOfTimesHeHasCome;
+    public String toStringData() {
+        return identificationCard + "," + name + "," + number + "," + pendingPayment + "," + appointment + "," + address;
     }
 
-    public void setNumberOfTimesHeHasCome(int numberOfTimesHeHasCome) {
-        this.numberOfTimesHeHasCome = numberOfTimesHeHasCome;
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 
-    public String getIdCustomer() {
-        return IdCustomer;
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setIdCustomer(String IdCustomer) {
-        this.IdCustomer = IdCustomer;
+    /**
+     * @return the number
+     */
+    public int getNumber() {
+        return number;
     }
 
-    public String getEmail() {
-        return email;
+    /**
+     * @param number the number to set
+     */
+    public void setNumber(int number) {
+        this.number = number;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    /**
+     * @return the pendingPayment
+     */
+    public boolean isPendingPayment() {
+        return pendingPayment;
     }
-    
-    
-    
-    
+
+    /**
+     * @param pendingPayment the pendingPayment to set
+     */
+    public void setPendingPayment(boolean pendingPayment) {
+        this.pendingPayment = pendingPayment;
+    }
+
+    /**
+     * @return the appointment
+     */
+    public String getAppointment() {
+        return appointment;
+    }
+
+    /**
+     * @param appointment the appointment to set
+     */
+    public void setAppointment(String appointment) {
+        this.appointment = appointment;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return the identificationCard
+     */
+    public String getIdentificationCard() {
+        return identificationCard;
+    }
+
+    /**
+     * @param identificationCard the identificationCard to set
+     */
+    public void setIdentificationCard(String identificationCard) {
+        this.identificationCard = identificationCard;
+    }
 
 }

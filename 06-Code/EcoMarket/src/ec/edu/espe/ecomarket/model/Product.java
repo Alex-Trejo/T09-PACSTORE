@@ -1,67 +1,93 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package ec.edu.espe.ecomarket.model;
 
 /**
  *
- * @author Reishel Tipan, PACSTORE, DCCO-ESPE
+ * @author David Toapanta, Pacstore, DCCO-ESPE
  */
 public class Product {
 
     private String name;
-    private double unitPrice;
-    private int amount;
+    private float price;
+    private String expiration;
+    private int stock;
+
+    public Product(String name, float price, String expiration, int stock) {
+        this.name = name;
+        this.price = price;
+        this.expiration = expiration;
+        this.stock = stock;
+    }
+
+    public Product() {
+    }
+    
 
     @Override
     public String toString() {
-        return "Product{" + "name=" + name + ", unitPrice=" + unitPrice + ", amount=" + amount + '}';
+        return "Product{" + "name=" + name + ", price=" + price + ", expiration=" + expiration + ", stock=" + stock + '}';
     }
 
-    public Product(String name, double unitPrice, int amount) {
-        this.name = name;
-        this.unitPrice = unitPrice;
-        this.amount = amount;
+    public String toStringData() {
+        return name + "," + price + "," + expiration + "," + stock;
     }
-    
-    
-     public Product() {
-        name = "";
-        unitPrice = 0.0;
-        amount = 0;
-    }
-    
-    
 
+    /**
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name the name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
+    /**
+     * @return the price
+     */
+    public float getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(float price) {
+        this.price = price;
     }
 
-    public int getAmount() {
-        return amount;
+    /**
+     * @return the expiration
+     */
+    public String getExpiration() {
+        return expiration;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    /**
+     * @param expiration the expiration to set
+     */
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
     }
 
-   
+    /**
+     * @return the stock
+     */
+    public int getStock() {
+        return stock;
+    }
 
-    
-
-    
-
-   
-
-    
-
+    /**
+     * @param stock the stock to set
+     */
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 }
