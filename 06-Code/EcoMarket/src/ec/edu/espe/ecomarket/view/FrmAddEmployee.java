@@ -20,7 +20,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  *
- * @author Roberto Bedon, DCCO-ESPE, BETTACODDERS
+ * @author Alex Trejo, PACSTORE, DCCO-ESPE
  */
 public class FrmAddEmployee extends javax.swing.JFrame {
 

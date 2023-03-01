@@ -21,7 +21,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  *
- * @author widin
+ * @author Alex Trejo, PACSTORE, DCCO-ESPE
  */
 public class FrmPosition extends javax.swing.JFrame {
 
