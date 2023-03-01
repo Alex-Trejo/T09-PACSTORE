@@ -434,8 +434,8 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itemAddServiceActionPerformed
 
     private void itemUpdateServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUpdateServiceActionPerformed
-       FrmUpdateCargo frmService;
-        frmService = new FrmUpdateCargo();
+       FrmUpdatePosition frmService;
+        frmService = new FrmUpdatePosition();
         frmService.setVisible(true);
         this.setVisible(false); // TODO add your handling code here:
     }//GEN-LAST:event_itemUpdateServiceActionPerformed
