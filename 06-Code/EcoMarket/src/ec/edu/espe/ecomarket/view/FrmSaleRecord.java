@@ -8,6 +8,12 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.ecomarket.controller.MongoConection;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -20,7 +26,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
  *
  * @author Carlos Torres, T09_PACSTORE, DCCO-ESPE
  */
-public class FrmSaleRecord extends javax.swing.JFrame {
+public class FrmSaleRecord extends javax.swing.JFrame implements Printable {
 
     /**
      * Creates new form FrmSaleRecord
@@ -28,8 +34,7 @@ public class FrmSaleRecord extends javax.swing.JFrame {
     public FrmSaleRecord() {
         initComponents();
     }
-    
-    
+
     public void loadSale() {
 
         MongoConection connection;
@@ -40,7 +45,7 @@ public class FrmSaleRecord extends javax.swing.JFrame {
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
         MongoDatabase db = connection.connectDatabase().withCodecRegistry(codecRegistry);
-        MongoCollection<Document> salesRecordCollection = db.getCollection("SalesRecord", Document.class); 
+        MongoCollection<Document> salesRecordCollection = db.getCollection("SalesRecord", Document.class);
         List<Document> saleRecord = salesRecordCollection.find(new Document(), Document.class).into(new ArrayList<>());
 
         Object[][] objects = new Object[saleRecord.size()][4];
@@ -50,8 +55,7 @@ public class FrmSaleRecord extends javax.swing.JFrame {
             objects[i][1] = saleRecord.get(i).get("amount sold");
             objects[i][2] = saleRecord.get(i).get("unit price");
             objects[i][3] = saleRecord.get(i).get("total Money");
-           
-       
+
             tblSaleRecord.setModel(new javax.swing.table.DefaultTableModel(
                     objects,
                     new String[]{
@@ -78,11 +82,11 @@ public class FrmSaleRecord extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnPrinter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblSaleRecord.setForeground(new java.awt.Color(0, 0, 0));
         tblSaleRecord.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -126,12 +130,20 @@ public class FrmSaleRecord extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/ecomarket/images/saleRecords.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
 
+        btnPrinter.setText("Printer");
+        btnPrinter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrinterActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPrinter, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 423, 120, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        FrmActionsOfTheManager login= new FrmActionsOfTheManager();
+        FrmActionsOfTheManager login = new FrmActionsOfTheManager();
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
@@ -140,6 +152,38 @@ public class FrmSaleRecord extends javax.swing.JFrame {
         // TODO add your handling code here:
         loadSale();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnPrinterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrinterActionPerformed
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+
+        Printable printable = new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                if (pageIndex > 0) {
+                    return NO_SUCH_PAGE;
+                }
+
+                Graphics2D graphics2D = (Graphics2D) graphics;
+                graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+
+                tblSaleRecord.print(graphics2D);
+
+                return PAGE_EXISTS;
+            }
+        };
+
+        printerJob.setPrintable(printable);
+
+        if (printerJob.printDialog()) {
+            try {
+                printerJob.print();
+            } catch (PrinterException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
+    }//GEN-LAST:event_btnPrinterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,9 +222,22 @@ public class FrmSaleRecord extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnPrinter;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblSaleRecord;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        if (pageIndex == 0) {
+            Graphics2D graphics2d = (Graphics2D) graphics;
+            graphics2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+            printAll(graphics2d);
+            return PAGE_EXISTS;
+        } else {
+            return NO_SUCH_PAGE;
+        }
+    }
 }
