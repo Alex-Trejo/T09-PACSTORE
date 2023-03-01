@@ -127,9 +127,9 @@ public class FrmDeleteCustomer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        FrmHuertoEcoMarketMenu frmStylesirelia;
-        frmStylesirelia = new FrmHuertoEcoMarketMenu();
-        frmStylesirelia.setVisible(true);
+        FrmHuertoEcoMarketMenu frmHuertoEcoMarketMenu;
+        frmHuertoEcoMarketMenu = new FrmHuertoEcoMarketMenu();
+        frmHuertoEcoMarketMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -146,8 +146,9 @@ public class FrmDeleteCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
-     * @param args the command line arguments
-     */
+ *
+ * @author Alex Trejo, PACSTORE, DCCO-ESPE
+ */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

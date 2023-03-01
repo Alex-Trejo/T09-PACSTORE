@@ -18,7 +18,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  *
- * @author Luis Burbano, DCCO- ESPE, BettaCoders
+ * @author Alex Trejo, PACSTORE, DCCO-ESPE
  */
 public class FrmDeleteEmployee extends javax.swing.JFrame {
 
@@ -46,10 +46,10 @@ public class FrmDeleteEmployee extends javax.swing.JFrame {
         CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         MongoDatabase db = Connection.mongodb.withCodecRegistry(codecRegistry);
-        MongoCollection<Employee> collectionServices = db.getCollection("stylists", Employee.class);
-        List<Employee> stylists = collectionServices.find(new Document(), Employee.class).into(new ArrayList<Employee>());
+        MongoCollection<Employee> collectionServices = db.getCollection("employee", Employee.class);
+        List<Employee> employee = collectionServices.find(new Document(), Employee.class).into(new ArrayList<Employee>());
 
-        for (Employee stylist : stylists) {
+        for (Employee stylist : employee) {
             comboBoxStylist.addItem(stylist.getName());
         }
 
@@ -142,9 +142,9 @@ public class FrmDeleteEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
-        FrmHuertoEcoMarketMenu frmStylesirelia;
-        frmStylesirelia = new FrmHuertoEcoMarketMenu();
-        frmStylesirelia.setVisible(true);
+        FrmHuertoEcoMarketMenu frmHuertoEcoMarketMenu;
+        frmHuertoEcoMarketMenu = new FrmHuertoEcoMarketMenu();
+        frmHuertoEcoMarketMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
