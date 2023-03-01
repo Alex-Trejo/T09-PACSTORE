@@ -391,8 +391,8 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
 
     private void itmTableServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmTableServiceActionPerformed
         
-        FrmTableCargo frmTableService;
-        frmTableService = new FrmTableCargo();
+        FrmTablePosition frmTableService;
+        frmTableService = new FrmTablePosition();
         frmTableService.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_itmTableServiceActionPerformed
