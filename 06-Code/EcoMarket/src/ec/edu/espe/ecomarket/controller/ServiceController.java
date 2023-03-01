@@ -4,22 +4,22 @@
  */
 package ec.edu.espe.ecomarket.controller;
 import org.bson.Document;
-import ec.edu.espe.ecomarket.model.Cargo;
+import ec.edu.espe.ecomarket.model.Position;
 
 /**
  *
  * @author David Toapanta, Pacstore, DCCO-ESPE
  */
-public class ServiceController extends BasicController<Cargo> {
-     public ServiceController(Cargo object, String collectionName) {
+public class ServiceController extends BasicController<Position> {
+     public ServiceController(Position object, String collectionName) {
         super(object, collectionName);
     }
     
     public ServiceController() {
-        super(new Cargo(), "services");
+        super(new Position(), "services");
     }
 
-    public Document buildDocument(Cargo service) {
+    public Document buildDocument(Position service) {
         Document document = new Document();
 
         document.append("price", service.getPrice()).
