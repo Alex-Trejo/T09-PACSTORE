@@ -1,35 +1,33 @@
 package ec.edu.espe.ecomarket.controller;
 
 import com.google.gson.Gson;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.ReplaceOptions;
 import static com.mongodb.client.model.Updates.set;
 import com.mongodb.client.result.DeleteResult;
-import ec.edu.espe.ecomarket.model.Employee;
 import org.bson.Document;
 /**
  *
  * @author David Toapanta, Pacstore, DCCO-ESPE
  */
-public class BasicController<T> extends BasicModel {
+public class BasicController<ModelType> extends BasicModel {
 
-    T model;
+    ModelType model;
     private MongoDatabase mongoDB = Connection.mongodb;
 
     private MongoCollection<Document> mongoCollection;
 
-    public BasicController(T object, String collectionName) {
+    public BasicController(ModelType object, String collectionName) {
         this.model = object;
         this.mongoCollection = mongoDB.getCollection(collectionName);
     }
 
-    public T parseDocumentToClass(Document document) {
+    public ModelType parseDocumentToClass(Document document) {
 
         Gson gson = new Gson();
-        return (T) gson.fromJson(document.toJson(), model.getClass());
+        return (ModelType) gson.fromJson(document.toJson(), model.getClass());
 
     }
 

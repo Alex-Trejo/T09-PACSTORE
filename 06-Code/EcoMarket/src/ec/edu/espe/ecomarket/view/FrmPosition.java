@@ -8,7 +8,6 @@ import ec.edu.espe.ecomarket.controller.ServiceController;
 import ec.edu.espe.ecomarket.controller.Connection;
 import ec.edu.espe.ecomarket.model.Position;
 import ec.edu.espe.ecomarket.model.Employee;
-import static java.lang.Float.parseFloat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;

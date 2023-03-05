@@ -3,6 +3,7 @@ package ec.edu.espe.ecomarket.view;
 import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.ecomarket.controller.CustomerController;
 import ec.edu.espe.ecomarket.controller.Connection;
+import ec.edu.espe.ecomarket.controller.IdentificationCardController;
 import ec.edu.espe.ecomarket.model.Customer;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ public class FrmCustomer extends javax.swing.JFrame {
 
     SimpleDateFormat formDate = new SimpleDateFormat("dd-MM-yyyy");
     private CustomerController customerController;
+
     public String getDate(JDateChooser jdDate) {
         if (jdDate.getDate() != null) {
             return formDate.format(jdDate.getDate());
@@ -208,6 +210,7 @@ public class FrmCustomer extends javax.swing.JFrame {
         String name;
         int number;
         boolean pendigPayment;
+        boolean validateId = true;
         String appointment;
         String address;
 
@@ -218,17 +221,52 @@ public class FrmCustomer extends javax.swing.JFrame {
         appointment = formDate.format(txtDateService.getDate());
         address = txtAddress.getText();
 
-        Customer customer = new Customer(identificationCard, name, number, false, appointment, address);
-        
-        customerController.create(customerController.buildDocument(customer));
-        Document result = customerController.read(customerController.buildDocument(customer));
-        if (result!=null) {
-            JOptionPane.showMessageDialog(null, "Creado con exito");
-        }else{
-            JOptionPane.showMessageDialog(null, "Hubo un problema reintente");
+        validateId = IdentificationCardController.validateID(identificationCard);
+
+        if (validateId == false) {
+            emptyFieldsId();
+            System.out.printf("The entered ID is incorrect");
+            JOptionPane.showMessageDialog(null, "La cedula ingresada es incorrecta, ingrese de nuevo");
+            
         }
 
+        if (validateId == true) {
+            Customer customer = new Customer(identificationCard, name, number, false, appointment, address);
+
+            customerController.create(customerController.buildDocument(customer));
+            Document result = customerController.read(customerController.buildDocument(customer));
+            if (result != null) {
+                JOptionPane.showMessageDialog(null, "Creado con exito");
+                emptyFields();
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Hubo un problema reintente");
+            }
+
+        }
+
+
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void emptyFieldsId() {
+
+        txtId.setText("");
+
+    }
+    
+    private void emptyFields() {
+
+        txtId.setText("");
+        txtName.setText("");
+        txtNumber.setText("");
+        txtDateService.setToolTipText("");
+        txtAddress.setText("");
+
+    }
+    
+    
+
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String identificationCard;
@@ -312,12 +350,13 @@ public class FrmCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumberKeyTyped
 
     private void txtAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyTyped
-       char validar = evt.getKeyChar();
-        if(Character.isDigit(validar)){
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
             getToolkit().beep();
-            
+
             evt.consume();
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras \n Enter only letters");}
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras \n Enter only letters");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddressKeyTyped
 

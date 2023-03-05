@@ -1,4 +1,3 @@
-
 package ec.edu.espe.ecomarket.view;
 
 import com.mongodb.MongoClient;
@@ -6,16 +5,13 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.ecomarket.controller.Connection;
 import ec.edu.espe.ecomarket.model.Employee;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.text.*;
-import java.awt.print.*;
 import java.awt.print.PrinterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
+import javax.swing.JOptionPane;
 import javax.swing.JTable.PrintMode;
 import org.bson.Document;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -46,13 +42,12 @@ public class FrmTableEmployee extends javax.swing.JFrame {
         Connection.connectionDataBase();
     }
 
-    
     public void loadStylistsTable() {
-       
+
         CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         MongoDatabase db = Connection.mongodb.withCodecRegistry(codecRegistry);
-        MongoCollection<Employee> collectionStylists = db.getCollection("stylists", Employee.class); 
+        MongoCollection<Employee> collectionStylists = db.getCollection("stylists", Employee.class);
         List<Employee> stylists = collectionStylists.find(new Document(), Employee.class).into(new ArrayList<Employee>());
 
         Object[][] objects = new Object[stylists.size()][6];
@@ -75,6 +70,7 @@ public class FrmTableEmployee extends javax.swing.JFrame {
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,26 +174,26 @@ public class FrmTableEmployee extends javax.swing.JFrame {
 
     private void btnPrintStylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintStylistActionPerformed
 
+        boolean complete;
         MessageFormat headerFormat = new MessageFormat("Stylists");
         MessageFormat footerFormat = new MessageFormat("- Página {0} -");
         try {
-           tableStylists.print(PrintMode.FIT_WIDTH, headerFormat, footerFormat);
+            tableStylists.print(PrintMode.FIT_WIDTH, headerFormat, footerFormat);
+            complete = true;
         } catch (PrinterException ex) {
             Logger.getLogger(FrmTablePosition.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        boolean complete = false;
-        try {
-            complete = tableStylists.print();
-        } catch (PrinterException ex) {
-            Logger.getLogger(FrmTablePosition.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         if (complete) {
-            System.out.println("---print finished!--");
-        } else {
-            System.out.println("---Error printing---");
+            complete = false;
         }
 
-        
+        if (complete) {
+            System.out.println("---print finished!--");
+            JOptionPane.showMessageDialog(rootPane, "La impresión fue exitosa.");
+        } else {
+            System.out.println("---Error printing---");
+            JOptionPane.showMessageDialog(rootPane, "Ocurrio un error.");
+        }
+
+
     }//GEN-LAST:event_btnPrintStylistActionPerformed
 
     /**

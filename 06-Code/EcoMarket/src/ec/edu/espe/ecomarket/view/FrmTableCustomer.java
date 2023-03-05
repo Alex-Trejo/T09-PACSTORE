@@ -7,13 +7,11 @@ import ec.edu.espe.ecomarket.controller.Connection;
 import ec.edu.espe.ecomarket.model.Customer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.text.*;
-import java.awt.print.*;
 import java.awt.print.PrinterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
+import javax.swing.JOptionPane;
 import javax.swing.JTable.PrintMode;
 import org.bson.Document;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -175,23 +173,23 @@ public class FrmTableCustomer extends javax.swing.JFrame {
 
     private void btnPrintCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintCustomersActionPerformed
 
+        boolean complete;
         MessageFormat headerFormat = new MessageFormat("Customers");
         MessageFormat footerFormat = new MessageFormat("- Página {0} -");
         try {
             tableCustomers.print(PrintMode.FIT_WIDTH, headerFormat, footerFormat);
+            complete = true;
         } catch (PrinterException ex) {
             Logger.getLogger(FrmTablePosition.class.getName()).log(Level.SEVERE, null, ex);
+            complete = false;
         }
-        boolean complete = false;
-        try {
-            complete = tableCustomers.print();
-        } catch (PrinterException ex) {
-            Logger.getLogger(FrmTablePosition.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         if (complete) {
             System.out.println("---print finished!--");
+             JOptionPane.showMessageDialog(rootPane, "La impresión fue exitosa.");
         } else {
             System.out.println("---Error printing---");
+            JOptionPane.showMessageDialog(rootPane, "Ocurrio un error.");
         }
     }//GEN-LAST:event_btnPrintCustomersActionPerformed
 

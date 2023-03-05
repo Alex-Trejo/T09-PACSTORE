@@ -12,7 +12,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -28,36 +27,36 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 public class FrmLogin extends javax.swing.JFrame {
     
     public class centerFrame extends javax.swing.JFrame {
-
+        
         public centerFrame() {
             initComponents();
             
             setLocationRelativeTo(null);
         }
     }
-
+    
     int xMouse, yMouse;
     private UserController userController;
-
+    
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/HuertoEcoMarketMain.png"));
         return retValue;
     }
-
+    
     public FrmLogin() {
-
+        
         Connection.connectionDataBase();
-
+        
         initComponents();
         userController = new UserController();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         String path = System.getProperty("user.dir");
-
+        
         this.setTitle("Login Window");
-
+        
     }
-
+    
     public void showAlertProducts() {
         CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
@@ -70,13 +69,13 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         }
     }
-
+    
     public void loginVerification() {
         User user;
         user = new User(textFieldUser.getText(), new String(passwordField.getPassword()));
         Document userDoc = userController.buildDocument(user);
         Document doc = userController.read(userDoc);
-
+        
         if (doc != null) {
             FrmHuertoEcoMarketMenu frmStylesIreliaMenu = new FrmHuertoEcoMarketMenu();
             JOptionPane.showMessageDialog(null, "Bienvenido al sistema.");
@@ -85,7 +84,15 @@ public class FrmLogin extends javax.swing.JFrame {
             showAlertProducts();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o clave incorrectos, vuelva a intentar.");
+            emptyFields();
         }
+    }
+    
+    private void emptyFields() {
+        
+        textFieldUser.setText("");
+        passwordField.setText("");
+        
     }
 
     /**
@@ -150,6 +157,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 textFieldUserActionPerformed(evt);
             }
         });
+        textFieldUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldUserKeyTyped(evt);
+            }
+        });
         jPanel1.add(textFieldUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 230, -1));
 
         txtUsername.setFont(new java.awt.Font("Roboto Light", 1, 24)); // NOI18N
@@ -168,6 +180,11 @@ public class FrmLogin extends javax.swing.JFrame {
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
+            }
+        });
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyTyped(evt);
             }
         });
         jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 230, 30));
@@ -365,6 +382,24 @@ public class FrmLogin extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_passwordFieldMousePressed
+
+    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
+        // TODO add your handling code here:
+        int key = evt.getKeyChar();
+        boolean validCharacters = (key >= 65 && key <= 90) || (key >= 97 && key <= 122) || (key == 32) || (key >= 48 && key <= 57);
+        if (!validCharacters) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_passwordFieldKeyTyped
+
+    private void textFieldUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldUserKeyTyped
+        // TODO add your handling code here:
+        int key = evt.getKeyChar();
+        boolean validCharacters = (key >= 65 && key <= 90) || (key >= 97 && key <= 122) || (key == 32) || (key >= 48 && key <= 57);
+        if (!validCharacters) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_textFieldUserKeyTyped
 
     /**
      * @param args the command line arguments

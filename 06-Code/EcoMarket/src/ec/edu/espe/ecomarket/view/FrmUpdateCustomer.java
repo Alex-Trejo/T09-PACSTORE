@@ -1,15 +1,11 @@
 package ec.edu.espe.ecomarket.view;
 
-import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import static com.mongodb.client.model.Filters.eq;
 import ec.edu.espe.ecomarket.controller.CustomerController;
-import ec.edu.espe.ecomarket.controller.EmployeeController;
 import ec.edu.espe.ecomarket.controller.Connection;
 import ec.edu.espe.ecomarket.model.Customer;
-import ec.edu.espe.ecomarket.model.Employee;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -226,6 +222,10 @@ public class FrmUpdateCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void txtUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUpdate1ActionPerformed
+        
+        
+        
+        
         Document doc = customerController.read(comboBoxCustomers.getSelectedItem().toString(),"identificationCard");
         Customer customer = new Customer(comboBoxCustomers.getSelectedItem().toString(),
                 txtName.getText(),

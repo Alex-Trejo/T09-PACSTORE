@@ -1,20 +1,8 @@
 package ec.edu.espe.ecomarket.view;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.ecomarket.controller.Connection;
-import ec.edu.espe.ecomarket.model.Product;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import org.bson.Document;
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  *
@@ -36,7 +24,6 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/menu_bg.png"));
         return retValue;
     }
-    
 
     /**
      * Creates new form frmStylesirelia
@@ -44,9 +31,8 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     public FrmHuertoEcoMarketMenu() {
         initComponents();
         Connection.connectionDataBase();
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -386,11 +372,11 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
         frmTableCustomer = new FrmTableCustomer();
         frmTableCustomer.setVisible(true);
         this.setVisible(false);
-        
+
     }//GEN-LAST:event_itmTableCustomerActionPerformed
 
     private void itmTableServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmTableServiceActionPerformed
-        
+
         FrmTablePosition frmTableService;
         frmTableService = new FrmTablePosition();
         frmTableService.setVisible(true);
@@ -398,7 +384,7 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmTableServiceActionPerformed
 
     private void itmTableSupllierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmTableSupllierActionPerformed
-        
+
         FrmTableSupplier frmTableSupplier;
         frmTableSupplier = new FrmTableSupplier();
         frmTableSupplier.setVisible(true);
@@ -406,7 +392,7 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmTableSupllierActionPerformed
 
     private void itemAddSuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddSuppliersActionPerformed
-       FrmSupplier frmSupplier;
+        FrmSupplier frmSupplier;
         frmSupplier = new FrmSupplier();
         frmSupplier.setVisible(true);
         this.setVisible(false); // TODO add your handling code here:
@@ -420,7 +406,7 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itemUpdateSuppliersActionPerformed
 
     private void itemDeleteSuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDeleteSuppliersActionPerformed
-       FrmDeleteSupplier frmDeleteSupplier;
+        FrmDeleteSupplier frmDeleteSupplier;
         frmDeleteSupplier = new FrmDeleteSupplier();
         frmDeleteSupplier.setVisible(true);
         this.setVisible(false); // TODO add your handling code here:
@@ -434,14 +420,14 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itemAddServiceActionPerformed
 
     private void itemUpdateServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUpdateServiceActionPerformed
-       FrmUpdatePosition frmService;
+        FrmUpdatePosition frmService;
         frmService = new FrmUpdatePosition();
         frmService.setVisible(true);
         this.setVisible(false); // TODO add your handling code here:
     }//GEN-LAST:event_itemUpdateServiceActionPerformed
 
     private void itemDeleteServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDeleteServiceActionPerformed
-       FrmDeletePosition frmService;
+        FrmDeletePosition frmService;
         frmService = new FrmDeletePosition();
         frmService.setVisible(true);
         this.setVisible(false);// TODO add your handling code here:
@@ -482,13 +468,13 @@ public class FrmHuertoEcoMarketMenu extends javax.swing.JFrame {
         FrmDeleteProduct frmDeleteProduct = new FrmDeleteProduct();
         frmDeleteProduct.setVisible(true);
         this.setVisible(false);
-        
-        
+
+
     }//GEN-LAST:event_menuDeleteProductActionPerformed
 
     private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_jMenu5ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed

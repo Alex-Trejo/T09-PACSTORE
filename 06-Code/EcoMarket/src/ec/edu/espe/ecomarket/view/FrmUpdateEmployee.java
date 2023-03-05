@@ -1,16 +1,14 @@
 package ec.edu.espe.ecomarket.view;
 
-import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import static com.mongodb.client.model.Filters.eq;
 import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.ecomarket.controller.EmployeeController;
 import ec.edu.espe.ecomarket.controller.Connection;
+import ec.edu.espe.ecomarket.controller.IdentificationCardController;
 import ec.edu.espe.ecomarket.model.Position;
 import ec.edu.espe.ecomarket.model.Employee;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +57,7 @@ public class FrmUpdateEmployee extends javax.swing.JFrame {
         loadServicesComboBox();
         loadStylistComboBox();
     }
-    
+
     public void loadServicesComboBox() {
 
         CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
@@ -208,7 +206,7 @@ public class FrmUpdateEmployee extends javax.swing.JFrame {
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        jLabel8.setText("Actualizar Estilista");
+        jLabel8.setText("Actualizar Empleado");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 220, -1));
 
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -238,7 +236,7 @@ public class FrmUpdateEmployee extends javax.swing.JFrame {
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
 
-       try {
+        try {
             Document doc = stylistController.read(comboBoxStylist.getSelectedItem().toString(), "name");
             Employee stylist = stylistController.parseDocumentToClass(doc);
             txtId.setText(stylist.getIdentificationCard());
@@ -256,19 +254,45 @@ public class FrmUpdateEmployee extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
-        Document doc = stylistController.read(comboBoxStylist.getSelectedItem().toString(), "name");
+        boolean validateId = true;
+        String identificationCard;
 
-        Employee stylist = new Employee(txtId.getText(), txtName.getText(), txtNumber.getText(), Double.parseDouble(txtPayment.getText()), comboBoxStylist.getSelectedItem().toString(), txtAddress.getText());
+        identificationCard = txtId.getText();
 
-        stylistController.update(doc, stylistController.buildDocument(stylist));
-        Document result = stylistController.read(stylistController.buildDocument(stylist));
-        if (result != null) {
+        validateId = IdentificationCardController.validateID(identificationCard);
 
-            JOptionPane.showMessageDialog(null, "Actualización con extio");
-        } else {
-            JOptionPane.showMessageDialog(null, "Hubo un problema reintente con exito");
+        if (validateId == false) {
+            emptyFieldsId();
+            System.out.printf("The entered ID is incorrect");
+            JOptionPane.showMessageDialog(null, "La cedula ingresada es incorrecta, ingrese de nuevo");
+
         }
+
+        if (validateId == true) {
+
+            Document doc = stylistController.read(comboBoxStylist.getSelectedItem().toString(), "name");
+
+            Employee employee = new Employee(txtId.getText(), txtName.getText(), txtNumber.getText(), Double.parseDouble(txtPayment.getText()), comboBoxStylist.getSelectedItem().toString(), txtAddress.getText());
+
+            stylistController.update(doc, stylistController.buildDocument(employee));
+            Document result = stylistController.read(stylistController.buildDocument(employee));
+            if (result != null) {
+
+                JOptionPane.showMessageDialog(null, "Actualización con exito");
+            } else {
+                JOptionPane.showMessageDialog(null, "Hubo un problema reintente con exito");
+            }
+
+        }
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void emptyFieldsId() {
+
+        txtId.setText("");
+
+    }
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmHuertoEcoMarketMenu frmStylesirelia;

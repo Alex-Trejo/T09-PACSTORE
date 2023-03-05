@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.ecomarket.controller.EmployeeController;
 import ec.edu.espe.ecomarket.controller.Connection;
+import ec.edu.espe.ecomarket.controller.IdentificationCardController;
 import ec.edu.espe.ecomarket.model.Position;
 import ec.edu.espe.ecomarket.model.Employee;
 import java.text.SimpleDateFormat;
@@ -52,23 +53,22 @@ public class FrmAddEmployee extends javax.swing.JFrame {
         initComponents();
         Connection.connectionDataBase();
         stylistController = new EmployeeController();
-         loadServicesComboBox();
+        loadServicesComboBox();
 
     }
-    public void loadServicesComboBox() { 
-        
+
+    public void loadServicesComboBox() {
+
         //-------
         CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         MongoDatabase db = Connection.mongodb.withCodecRegistry(codecRegistry);
-        MongoCollection<Position> collectionServices = db.getCollection("services", Position.class); 
+        MongoCollection<Position> collectionServices = db.getCollection("services", Position.class);
         List<Position> services = collectionServices.find(new Document(), Position.class).into(new ArrayList<Position>());
 
         for (Position service : services) {
             comboBoxServices.addItem(service.getName());
         }
-
-        
 
     }
 
@@ -231,6 +231,7 @@ public class FrmAddEmployee extends javax.swing.JFrame {
         String name;
         String number;
         double payment;
+        boolean validateId = true;
         String service;
         String address;
 
@@ -241,17 +242,48 @@ public class FrmAddEmployee extends javax.swing.JFrame {
         service = comboBoxServices.getSelectedItem().toString();
         address = txtAddress.getText();
 
-        Employee stylist = new Employee(identificationCard, name, number, payment, service, address);
+        validateId = IdentificationCardController.validateID(identificationCard);
 
-        stylistController.create(stylistController.buildDocument(stylist));
-        Document result = stylistController.read(stylistController.buildDocument(stylist));
-        if (result!=null) {
-            JOptionPane.showMessageDialog(null, "Creado con exito");
-        }else{
-            JOptionPane.showMessageDialog(null, "Hubo un problema");
+        if (validateId == false) {
+            emptyFieldsId();
+            System.out.printf("The entered ID is incorrect");
+            JOptionPane.showMessageDialog(null, "La cedula ingresada es incorrecta, ingrese de nuevo");
+
         }
 
+        if (validateId == true) {
+            Employee stylist = new Employee(identificationCard, name, number, payment, service, address);
+
+            stylistController.create(stylistController.buildDocument(stylist));
+            Document result = stylistController.read(stylistController.buildDocument(stylist));
+            if (result != null) {
+                JOptionPane.showMessageDialog(null, "Creado con exito");
+                emptyFields();
+            } else {
+                JOptionPane.showMessageDialog(null, "Hubo un problema");
+            }
+
+        }
+
+
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void emptyFieldsId() {
+
+        txtIdentification.setText("");
+
+    }
+
+    private void emptyFields() {
+
+        txtIdentification.setText("");
+        txtName.setText("");
+        txtNumber.setText("");
+        txtPayment.setText("");
+        txtAddress.setText("");
+        comboBoxServices.setToolTipText("");
+
+    }
 
     private void bntBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBackActionPerformed
         FrmHuertoEcoMarketMenu frmStylesirelia;
@@ -265,10 +297,10 @@ public class FrmAddEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificationActionPerformed
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-        char validateLetters = evt.getKeyChar();
-        if (Character.isDigit(validateLetters)) {
+        int key = evt.getKeyChar();
+        boolean letters = (key >= 65 && key <= 90) || (key >= 97 && key <= 122) || (key == 32);
+        if (!letters) {
             evt.consume();
-            JOptionPane.showMessageDialog(txtName, "Solo letras", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtNameKeyTyped
 
@@ -279,7 +311,7 @@ public class FrmAddEmployee extends javax.swing.JFrame {
             txtNumber.setEditable(true);
             if (legth > 10) {
 
-                JOptionPane.showMessageDialog(this, "La cédula tiene 10 digitos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El numero tiene 10 digitos", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 txtNumber.setText("");
 
             }

@@ -1,15 +1,12 @@
 package ec.edu.espe.ecomarket.view;
 
-import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import static com.mongodb.client.model.Filters.eq;
 import ec.edu.espe.ecomarket.controller.ServiceController;
 import ec.edu.espe.ecomarket.controller.Connection;
 import ec.edu.espe.ecomarket.model.Position;
 import ec.edu.espe.ecomarket.model.Employee;
-import static java.lang.Float.parseFloat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

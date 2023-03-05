@@ -2,10 +2,8 @@ package ec.edu.espe.ecomarket.view;
 
 import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.ecomarket.controller.ProductController;
-import ec.edu.espe.ecomarket.controller.TurnController;
 import ec.edu.espe.ecomarket.controller.Connection;
 import ec.edu.espe.ecomarket.model.Product;
-import ec.edu.espe.ecomarket.model.Turn;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import org.bson.Document;

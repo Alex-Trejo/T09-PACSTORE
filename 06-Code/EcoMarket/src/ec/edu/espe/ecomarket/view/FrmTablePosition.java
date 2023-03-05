@@ -5,23 +5,19 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.ecomarket.controller.Connection;
 import ec.edu.espe.ecomarket.model.Position;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.text.*;
-import java.awt.print.*;
 import java.awt.print.PrinterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
+import javax.swing.JOptionPane;
 import javax.swing.JTable.PrintMode;
 import org.bson.Document;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
-
 
 /**
  *
@@ -45,14 +41,14 @@ public class FrmTablePosition extends javax.swing.JFrame {
         initComponents();
         Connection.connectionDataBase();
     }
-    
-     public void loadServicesTable() { 
-        
+
+    public void loadServicesTable() {
+
         //-------
         CodecRegistry codecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         MongoDatabase db = Connection.mongodb.withCodecRegistry(codecRegistry);
-        MongoCollection<Position> collectionServices = db.getCollection("services", Position.class); 
+        MongoCollection<Position> collectionServices = db.getCollection("services", Position.class);
         List<Position> services = collectionServices.find(new Document(), Position.class).into(new ArrayList<Position>());
 
         Object[][] objects = new Object[services.size()][5];
@@ -63,18 +59,16 @@ public class FrmTablePosition extends javax.swing.JFrame {
             objects[i][2] = services.get(i).isAvailable();
             objects[i][3] = services.get(i).getAvailableStylist();
 
-
             tableServices.setModel(new javax.swing.table.DefaultTableModel(
                     objects,
                     new String[]{
-                         "Name", "Price", "Available", "AavailableStylist"
+                        "Cargo", "Sueldo", "Disponibilidad", "Encargado"
                     }
             ));
 
         }
 
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,7 +101,7 @@ public class FrmTablePosition extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Pricio", "Pago pendiente", "Disponible", "Stock disponible"
+                "Nombre", "Sueldo", "Pago pendiente", "Disponible", "Stock disponible"
             }
         ) {
             Class[] types = new Class [] {
@@ -190,26 +184,26 @@ public class FrmTablePosition extends javax.swing.JFrame {
 
     private void btnPrintServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintServiceActionPerformed
 
+        boolean complete;
         MessageFormat headerFormat = new MessageFormat("Services");
         MessageFormat footerFormat = new MessageFormat("- Página {0} -");
         try {
             tableServices.print(PrintMode.FIT_WIDTH, headerFormat, footerFormat);
+            complete = true;
         } catch (PrinterException ex) {
             Logger.getLogger(FrmTablePosition.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        boolean complete = false;
-        try {
-            complete = tableServices.print();
-        } catch (PrinterException ex) {
-            Logger.getLogger(FrmTablePosition.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         if (complete) {
-            System.out.println("---print finished!--");
-        } else {
-            System.out.println("---Error printing---");
+            complete = false;
         }
 
-       
+        if (complete) {
+            System.out.println("---print finished!--");
+            JOptionPane.showMessageDialog(rootPane, "La impresión fue exitosa.");
+        } else {
+            System.out.println("---Error printing---");
+            JOptionPane.showMessageDialog(rootPane, "Ocurrio un error.");
+        }
+
+
     }//GEN-LAST:event_btnPrintServiceActionPerformed
 
     /**
